@@ -14,12 +14,10 @@ var upgrade = {
             }
         }
         else {
-            var sources = creep.room.find(FIND_DROPPED_RESOURCES);
-            if (sources.length > 0){
-                var target = sources[0];
-                if (creep.pickup(target) == ERR_NOT_IN_RANGE){
-                    creep.moveTo(target);
-                }
+            sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => 
+                    structure.structureType == STRUCTURE_STORAGE});
+            if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+                creep.moveTo(sources[0]);
             }
         }
     }

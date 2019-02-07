@@ -12,6 +12,13 @@ var haul = {
                 if (creep.pickup(target) == ERR_NOT_IN_RANGE){
                     creep.moveTo(target);
                 }
+            }else{
+                sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => 
+                structure.structureType == STRUCTURE_CONTAINER});
+                sources = sources.sort((x1, x2) => x2.store[RESOURCE_ENERGY] - x1.store[RESOURCE_ENERGY]);
+                if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+                    creep.moveTo(sources[0]);
+                }
             }
         }
         else {
@@ -31,8 +38,12 @@ var haul = {
                    }
                 });
             }
+            if (targets.length < 1){
+                targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => structure.structureType == STRUCTURE_STORAGE});
+            }
+            
             if(targets.length > 0) {
-                var target = targets[0];
+                var target = creep.pos.findClosestByRange(targets);
                 if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);
                 }

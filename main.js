@@ -3,6 +3,11 @@ var upgrade = require('upgrade');
 var mine = require('mine');
 var repair = require('repair');
 var haul = require('haul');
+var xmine = require('xmine');
+var xhaul = require('xhaul');
+var reserver = require('reserver');
+var xbuild = require('xbuild');
+var killer = require('killer');
 
 module.exports.loop = function () {
     
@@ -34,11 +39,17 @@ module.exports.loop = function () {
     var buildCount = 0;
     var repairCount = 0;
     var haulCount = 0;
+    var xhaulCount = 0;
+    var xmineCount = 0;
+    var reserverCount = 0;
+    var xbuildCount = 0;
+    var killerCount = 0;
+    
     for(var name in Game.creeps){
         var creep = Game.creeps[name];
         if (creep.memory.role == 'mine'){
             mineCount++;
-            if (creep.memory.source = 0){
+            if (creep.memory.source == 0){
                 source0++;
             }else if (creep.memory.source == 1){
                 source1++;
@@ -51,19 +62,83 @@ module.exports.loop = function () {
             repairCount++;
         }else if (creep.memory.role == 'haul'){
             haulCount++;
+        }else if (creep.memory.role == 'xmine'){
+            xmineCount++;
+        }else if (creep.memory.role == 'xhaul'){
+            xhaulCount++;
+        }else if (creep.memory.role == 'reserver'){
+            reserverCount++;
+        }else if (creep.memory.role == 'xbuild'){
+            xbuildCount++;
+        }else if (creep.memory.role == 'killer'){
+            killerCount++;
         }
     }
     
+    Game.spawns.Spawn1.memory.source0 = source0;
+    Game.spawns.Spawn1.memory.source1 = source1;
+    
+    var nextSource = 0;
+    if (source0 > 0){
+        nextSource = 1;
+    }
+    
+    
     if (mineCount < 2){
-        Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, MOVE], 'mine ' + (Game.time - 3937500), {'role':'mine'});
+        Game.spawns.Spawn1.createCreep([
+            WORK, WORK, WORK, WORK, WORK,
+            MOVE
+            ], 'm' + (Game.time), {'role':'mine', 'source':nextSource});
     }else if (haulCount < 1){
-        Game.spawns.Spawn1.createCreep([MOVE, CARRY, CARRY, CARRY], 'haul ' + (Game.time - 3937500), {'role':'haul'});
-    }else if (upgradeCount < 1){
-        Game.spawns.Spawn1.createCreep([WORK, WORK, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY], 'upgrade ' + (Game.time - 3937500), {'role':'upgrade'});
-    }else if (buildCount < 3){
-        Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, MOVE, CARRY, CARRY, CARRY, CARRY], 'build ' + (Game.time - 3937500), {'role':'build'});
+        Game.spawns.Spawn1.createCreep([
+            MOVE, MOVE, 
+            CARRY, CARRY, CARRY
+            ], 'h' + (Game.time), {'role':'haul'});
+    }else if (upgradeCount < 3){
+        Game.spawns.Spawn1.createCreep([
+            WORK, WORK, WORK, WORK, WORK,
+            MOVE, 
+            CARRY, CARRY, CARRY
+            ], 'u' + (Game.time), {'role':'upgrade'});
+    }else if (buildCount < 1){
+        Game.spawns.Spawn1.createCreep([
+            WORK,
+            MOVE,
+            CARRY
+            ], 'b' + (Game.time), {'role':'build'});
     }else if (repairCount < 1){
-        Game.spawns.Spawn1.createCreep([WORK, WORK, MOVE, MOVE, CARRY, CARRY], 'repair ' + (Game.time - 3937500), {'role':'repair'});
+        Game.spawns.Spawn1.createCreep([
+            WORK,
+            MOVE,
+            CARRY
+            ], 'r' + (Game.time), {'role':'repair'});
+    }else if (xmineCount < 1){
+        Game.spawns.Spawn1.createCreep([
+            WORK, WORK, WORK, WORK, WORK,
+            MOVE, MOVE, MOVE
+            ], 'xm' + (Game.time), {'role':'xmine'});
+    }else if (xhaulCount < 1){
+        Game.spawns.Spawn1.createCreep([
+            MOVE, MOVE, MOVE, MOVE, MOVE,
+            CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY
+            ], 'xh' + (Game.time), {'role':'xhaul'});
+    }else if (reserverCount < 1){
+        Game.spawns.Spawn1.createCreep([
+            MOVE,
+            CLAIM, CLAIM
+            ], 'res' + (Game.time), {'role':'reserver'});
+    }else if (xbuildCount < 2){
+        Game.spawns.Spawn1.createCreep([
+            MOVE, MOVE, MOVE,
+            CARRY, CARRY, CARRY,
+            WORK, WORK, WORK
+            ], 'xb' + (Game.time), {'role':'xbuild'});
+    }else if (killerCount < 0){
+        Game.spawns.Spawn1.createCreep([
+            TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+            MOVE, MOVE, MOVE, MOVE, MOVE,
+            ATTACK, ATTACK, ATTACK, ATTACK, ATTACK
+            ], 'killer' + (Game.time), {'role':'killer'});
     }
     
 
@@ -79,6 +154,16 @@ module.exports.loop = function () {
             repair.run(creep);
         } else if(creep.memory.role == 'haul'){
             haul.run(creep);
+        }else if(creep.memory.role == 'xmine'){
+            xmine.run(creep);
+        }else if(creep.memory.role == 'xhaul'){
+            xhaul.run(creep);
+        }else if(creep.memory.role == 'reserver'){
+            reserver.run(creep);
+        }else if(creep.memory.role == 'xbuild'){
+            xbuild.run(creep);
+        }else if(creep.memory.role == 'killer'){
+            killer.run(creep);
         }
     }
 }
