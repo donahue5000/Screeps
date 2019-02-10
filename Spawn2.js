@@ -4,7 +4,7 @@
 
 var Spawn2 = {
     run: function(spawn){
-        
+
         var towers = Game.spawns[spawn].room.find(FIND_STRUCTURES, {filter: (structure) => structure.structureType == STRUCTURE_TOWER});
         for (var tower in towers){
             tower = towers[tower];
@@ -13,11 +13,11 @@ var Spawn2 = {
                 tower.attack(closestHostile);
             }
         }
-        
-        
+
+
         var source0 = 0;
         var source1 = 0;
-        
+
         var mineCount = 0;
         var upgradeCount = 0;
         var buildCount = 0;
@@ -30,8 +30,8 @@ var Spawn2 = {
         var killerCount = 0;
         var claimCount = 0;
         var colonistCount = 0;
-        
-        
+
+
         for(var name in Game.creeps){
             var creep = Game.creeps[name];
             if (creep.memory.home == spawn){
@@ -67,16 +67,16 @@ var Spawn2 = {
                 }
             }
         }
-        
+
         Game.spawns[spawn].memory.source0 = source0;
         Game.spawns[spawn].memory.source1 = source1;
-        
+
         var nextSource = 0;
         if (source0 > 0){
             nextSource = 1;
         }
-        
-        
+
+
         if (mineCount < 2){
             Game.spawns[spawn].createCreep([
                 WORK, WORK, WORK, WORK, WORK,
@@ -96,9 +96,9 @@ var Spawn2 = {
                 ], 'u' + (Game.time), {'role':'upgrade', 'home':spawn});
         }else if (buildCount < 1){
             Game.spawns[spawn].createCreep([
-                WORK, WORK,
-                MOVE, MOVE, MOVE,
-                CARRY, CARRY, CARRY, CARRY
+                WORK,
+                MOVE,
+                CARRY
                 ], 'b' + (Game.time), {'role':'build', 'home':spawn});
         }else if (repairCount < 1){
             Game.spawns[spawn].createCreep([
@@ -135,13 +135,13 @@ var Spawn2 = {
                 ], 'killer' + (Game.time), {'role':'killer', 'home':spawn});
         }else if (claimCount < 0){
             Game.spawns[spawn].createCreep([
-                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
+                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH,
                 MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
                 CLAIM
                 ], 'claim' + (Game.time), {'role':'claim', 'home':spawn});
         }else if (colonistCount < 0){
             Game.spawns[spawn].createCreep([
-                MOVE, MOVE, 
+                MOVE, MOVE,
                 CARRY,
                 WORK
                 ], 'colonist' + (Game.time), {'role':'colonist', 'home':spawn});
