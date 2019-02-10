@@ -27,10 +27,33 @@ var build = {
             }
         }
         else {
-            sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => 
-                    structure.structureType == STRUCTURE_STORAGE});
-            if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
-                creep.moveTo(sources[0]);
+            var sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => 
+                    structure.structureType == STRUCTURE_STORAGE
+                    && structure.store[RESOURCE_ENERGY] > 0
+            });
+            if (sources.length > 0){
+                if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+                    creep.moveTo(sources[0]);
+                }
+            }else{
+                sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => 
+                structure.structureType == STRUCTURE_CONTAINER 
+                    && structure.store[RESOURCE_ENERGY] > 0
+                });
+                if (sources.length > 0){
+                    var target = creep.pos.findClosestByRange(sources);
+                    if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+                    creep.moveTo(target);
+                    }
+                }else{
+                    sources = creep.room.find(FIND_DROPPED_RESOURCES);
+                    if (sources.length > 0){
+                        var target = creep.pos.findClosestByRange(sources);
+                        if (creep.pickup(target) == ERR_NOT_IN_RANGE){
+                            creep.moveTo(target);
+                        }
+                    }
+                }
             }
         }
     }
