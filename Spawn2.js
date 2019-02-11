@@ -90,15 +90,15 @@ var Spawn2 = {
                 ], 'h' + (Game.time), {'role':'haul', 'home':spawn});
         }else if (upgradeCount < 5){
             Game.spawns[spawn].createCreep([
-                WORK, WORK,
+                WORK, WORK, WORK, WORK,
                 MOVE, MOVE, MOVE, MOVE,
-                CARRY, CARRY
+                CARRY, CARRY, CARRY, CARRY
                 ], 'u' + (Game.time), {'role':'upgrade', 'home':spawn});
         }else if (buildCount < 1){
             Game.spawns[spawn].createCreep([
-                WORK,
-                MOVE,
-                CARRY
+                WORK, WORK,
+                MOVE, MOVE,
+                CARRY, CARRY
                 ], 'b' + (Game.time), {'role':'build', 'home':spawn});
         }else if (repairCount < 1){
             Game.spawns[spawn].createCreep([
