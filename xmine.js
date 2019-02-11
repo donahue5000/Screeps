@@ -15,6 +15,3 @@ var xmine = {
 };
 
 module.exports = xmine;
-
-
-//derp
