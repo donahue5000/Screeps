@@ -13,46 +13,48 @@ var colonist = require('colonist');
 var Spawn1 = require('Spawn1');
 var Spawn2 = require('Spawn2');
 
-module.exports.loop = function () {
+module.exports.loop = function() {
 
-    for(var name in Memory.creeps) {
-        if(!Game.creeps[name]) {
-            delete Memory.creeps[name];
-            console.log('Clearing non-existing creep memory:', name);
-        }
+  for (var name in Memory.creeps) {
+    if (!Game.creeps[name]) {
+      delete Memory.creeps[name];
+      console.log('Clearing non-existing creep memory:', name);
     }
+  }
 
-    Spawn1.run('Spawn1');
-    Spawn2.run('Spawn2');
 
-    for(var name in Game.creeps) {
-        var creep = Game.creeps[name];
-        if(creep.memory.role == 'mine') {
-            mine.run(creep);
-        }else if(creep.memory.role == 'upgrade') {
-            upgrade.run(creep);
-        }else if(creep.memory.role == 'build') {
-            build.run(creep);
-        }else if(creep.memory.role == 'repair'){
-            repair.run(creep);
-        } else if(creep.memory.role == 'haul'){
-            haul.run(creep);
-        }else if(creep.memory.role == 'xmine'){
-            xmine.run(creep);
-        }else if(creep.memory.role == 'xhaul'){
-            xhaul.run(creep);
-        }else if(creep.memory.role == 'reserver'){
-            reserver.run(creep);
-        }else if(creep.memory.role == 'xbuild'){
-            xbuild.run(creep);
-        }else if(creep.memory.role == 'killer'){
-            killer.run(creep);
-        }else if(creep.memory.role == 'claim'){
-            claim.run(creep);
-        }else if(creep.memory.role == 'colonist'){
-            colonist.run(creep);
-        }
+
+  Spawn1.run('Spawn1');
+  Spawn2.run('Spawn2');
+
+  for (var name in Game.creeps) {
+    var creep = Game.creeps[name];
+    if (creep.memory.role == 'mine') {
+      mine.run(creep);
+    } else if (creep.memory.role == 'upgrade') {
+      upgrade.run(creep);
+    } else if (creep.memory.role == 'build') {
+      build.run(creep);
+    } else if (creep.memory.role == 'repair') {
+      repair.run(creep);
+    } else if (creep.memory.role == 'haul') {
+      haul.run(creep);
+    } else if (creep.memory.role == 'xmine') {
+      xmine.run(creep);
+    } else if (creep.memory.role == 'xhaul') {
+      xhaul.run(creep);
+    } else if (creep.memory.role == 'reserver') {
+      reserver.run(creep);
+    } else if (creep.memory.role == 'xbuild') {
+      xbuild.run(creep);
+    } else if (creep.memory.role == 'killer') {
+      killer.run(creep);
+    } else if (creep.memory.role == 'claim') {
+      claim.run(creep);
+    } else if (creep.memory.role == 'colonist') {
+      colonist.run(creep);
     }
+  }
 }
 
 //flargens flergens
