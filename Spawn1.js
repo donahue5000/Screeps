@@ -120,7 +120,7 @@ var Spawn1 = {
         'role': 'repair',
         'home': spawn
       });
-    } else if (xmineCount < 1) {
+    } else if (xmineCount < 0) {
       Game.spawns[spawn].createCreep([
         WORK, WORK, WORK, WORK, WORK,
         MOVE, MOVE
@@ -128,7 +128,7 @@ var Spawn1 = {
         'role': 'xmine',
         'home': spawn
       });
-    } else if (xhaulCount < 3) {
+    } else if (xhaulCount < 0) {
       Game.spawns[spawn].createCreep([
         MOVE, MOVE, MOVE, MOVE, MOVE,
         CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY
@@ -136,7 +136,7 @@ var Spawn1 = {
         'role': 'xhaul',
         'home': spawn
       });
-    } else if (reserverCount < 1) {
+    } else if (reserverCount < 0) {
       Game.spawns[spawn].createCreep([
         MOVE,
         CLAIM, CLAIM
@@ -144,7 +144,7 @@ var Spawn1 = {
         'role': 'reserver',
         'home': spawn
       });
-    } else if (xbuildCount < 1) {
+    } else if (xbuildCount < 0) {
       Game.spawns[spawn].createCreep([
         MOVE, MOVE, MOVE,
         CARRY, CARRY, CARRY,

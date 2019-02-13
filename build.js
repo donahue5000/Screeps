@@ -24,8 +24,9 @@ var build = {
           return x1.hits - x2.hits
         });
         if (targets.length) {
-          if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(targets[0]);
+          target = targets[0];
+          if (creep.repair(target) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(target);
           }
         }
       }
@@ -43,7 +44,7 @@ var build = {
         sources = creep.room.find(FIND_STRUCTURES, {
           filter: (structure) =>
             structure.structureType == STRUCTURE_CONTAINER &&
-            structure.store[RESOURCE_ENERGY] > 0
+            structure.store[RESOURCE_ENERGY] > 200
         });
         if (sources.length > 0) {
           var target = creep.pos.findClosestByRange(sources);
@@ -51,7 +52,9 @@ var build = {
             creep.moveTo(target);
           }
         } else {
-          sources = creep.room.find(FIND_DROPPED_RESOURCES);
+          sources = creep.room.find(FIND_DROPPED_RESOURCES, {filter: (stuff) =>
+              stuff.amount > 100
+          });
           if (sources.length > 0) {
             var target = creep.pos.findClosestByRange(sources);
             if (creep.pickup(target) == ERR_NOT_IN_RANGE) {

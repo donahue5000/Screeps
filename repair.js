@@ -43,7 +43,7 @@ var repair = {
           }
         } else {
           sources = creep.room.find(FIND_DROPPED_RESOURCES, {
-            filter: (stuff) => stuff.amount > 200
+            filter: (stuff) => stuff.amount > 50
           });
           if (sources.length > 0) {
             var target = sources[0];

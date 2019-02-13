@@ -7,7 +7,7 @@ var haul = {
 
     if (creep.memory.hauling == false && creep.carry.energy < creep.carryCapacity) {
       var sources = creep.room.find(FIND_DROPPED_RESOURCES, {
-        filter: (stuff) => stuff.amount > 30
+        filter: (stuff) => stuff.amount > 200
       });
       if (sources.length > 0) {
         var target = creep.pos.findClosestByRange(sources);
