@@ -1,4 +1,4 @@
-var Spawn1 = {
+var Spawn3 = {
   run: function(spawn) {
 
     var towers = Game.spawns[spawn].room.find(FIND_STRUCTURES, {
@@ -85,19 +85,38 @@ var Spawn1 = {
         'home': spawn
       });
     }
+    if (mineCount < 2 && Game.spawns[spawn].room.energyAvailable < 550) {
+      Game.spawns[spawn].createCreep([
+        WORK, WORK,
+        MOVE
+      ], 'emergmine' + (Game.time), {
+        'role': 'mine',
+        'source': nextSource,
+        'home': spawn
+      });
+    }
     if (haulCount < 1) {
       Game.spawns[spawn].createCreep([
-        MOVE, MOVE,
-        CARRY, CARRY, CARRY, CARRY
+        MOVE, MOVE, MOVE, MOVE, MOVE,
+        CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY
       ], 'h' + (Game.time), {
         'role': 'haul',
         'home': spawn
       });
-    } else if (upgradeCount < 1) {
+    }
+      if (haulCount < 1 && Game.spawns[spawn].room.energyAvailable < 1000) {
       Game.spawns[spawn].createCreep([
-        WORK, WORK, WORK, WORK, WORK,
+        MOVE, MOVE,
+        CARRY, CARRY, CARRY, CARRY
+      ], 'emergh' + (Game.time), {
+        'role': 'haul',
+        'home': spawn
+      });
+    } else if (upgradeCount <  1) {
+      Game.spawns[spawn].createCreep([
+        WORK,
         MOVE,
-        CARRY, CARRY, CARRY
+        CARRY
       ], 'u' + (Game.time), {
         'role': 'upgrade',
         'home': spawn
@@ -105,7 +124,7 @@ var Spawn1 = {
     } else if (buildCount < 1) {
       Game.spawns[spawn].createCreep([
         WORK,
-        MOVE,
+        MOVE, 
         CARRY
       ], 'b' + (Game.time), {
         'role': 'build',
@@ -120,7 +139,7 @@ var Spawn1 = {
         'role': 'repair',
         'home': spawn
       });
-    } else if (xmineCount < 1) {
+    } else if (xmineCount < 0) {
       Game.spawns[spawn].createCreep([
         WORK, WORK, WORK, WORK, WORK,
         MOVE, MOVE
@@ -128,7 +147,7 @@ var Spawn1 = {
         'role': 'xmine',
         'home': spawn
       });
-    } else if (xhaulCount < 3) {
+    } else if (xhaulCount < 0) {
       Game.spawns[spawn].createCreep([
         MOVE, MOVE, MOVE, MOVE, MOVE,
         CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY
@@ -136,7 +155,7 @@ var Spawn1 = {
         'role': 'xhaul',
         'home': spawn
       });
-    } else if (reserverCount < 1) {
+    } else if (reserverCount < 0) {
       Game.spawns[spawn].createCreep([
         MOVE,
         CLAIM, CLAIM
@@ -144,37 +163,38 @@ var Spawn1 = {
         'role': 'reserver',
         'home': spawn
       });
-    } else if (xbuildCount < 1) {
+    } else if (xbuildCount < 0) {
       Game.spawns[spawn].createCreep([
-        MOVE, MOVE,
-        CARRY, CARRY,
-        WORK, WORK
+        MOVE, MOVE, MOVE,
+        CARRY, CARRY, CARRY,
+        WORK, WORK, WORK
       ], 'xb' + (Game.time), {
         'role': 'xbuild',
         'home': spawn
       });
-    } else if (killerCount < 1) {
+    } else if (killerCount < 0) {
       Game.spawns[spawn].createCreep([
         //TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
-        MOVE,
-        ATTACK
+        MOVE, MOVE, MOVE,
+        ATTACK, ATTACK, ATTACK
       ], 'killer' + (Game.time), {
         'role': 'killer',
         'home': spawn
       });
     } else if (claimCount < 0) {
       Game.spawns[spawn].createCreep([
-        MOVE, MOVE, MOVE, 
-        CLAIM, CLAIM, CLAIM
+        TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH,
+        MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+        CLAIM
       ], 'claim' + (Game.time), {
         'role': 'claim',
         'home': spawn
       });
     } else if (colonistCount < 0) {
       Game.spawns[spawn].createCreep([
-        MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
-        CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
-        WORK, WORK, WORK, WORK, WORK, WORK
+        MOVE,
+        CARRY,
+        WORK
       ], 'colonist' + (Game.time), {
         'role': 'colonist',
         'home': spawn
@@ -183,4 +203,4 @@ var Spawn1 = {
   }
 };
 
-module.exports = Spawn1;
+module.exports = Spawn3;

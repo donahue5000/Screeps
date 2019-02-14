@@ -11,7 +11,7 @@ var xhaul = {
       if (creep.room != Game.flags.minex.room) {
         creep.moveTo(Game.flags.minex);
       } else {
-        var sources = creep.room.find(FIND_DROPPED_RESOURCES);
+        var sources = creep.room.find(FIND_DROPPED_RESOURCES, {filter: (stuff) => stuff.amount > 50});
         if (sources.length > 0) {
           var target = sources[0];
           if (creep.pickup(target) == ERR_NOT_IN_RANGE) {

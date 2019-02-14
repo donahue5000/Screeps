@@ -12,6 +12,7 @@ var claim = require('claim');
 var colonist = require('colonist');
 var Spawn1 = require('Spawn1');
 var Spawn2 = require('Spawn2');
+var Spawn3 = require('Spawn3');
 
 module.exports.loop = function() {
 
@@ -26,6 +27,7 @@ module.exports.loop = function() {
 
   Spawn1.run('Spawn1');
   Spawn2.run('Spawn2');
+  Spawn3.run('Spawn3');
 
   for (var name in Game.creeps) {
     var creep = Game.creeps[name];
@@ -57,4 +59,4 @@ module.exports.loop = function() {
   }
 }
 
-//flargens flergens
+//Wednesday

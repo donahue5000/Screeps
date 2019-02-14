@@ -1,14 +1,14 @@
 var colonist = {
   run: function(creep) {
     if (creep.room != Game.flags.colony.room) {
-      if (creep.pos.isEqualTo(Game.flags.midway.pos)) {
-        creep.memory.halfway = true;
-      }
-      if (!creep.memory.halfway) {
-        creep.moveTo(Game.flags.midway);
-      } else {
+    //   if (creep.pos.isEqualTo(Game.flags.midway.pos)) {
+    //     creep.memory.midway = true;
+    //   }
+    //   if (!creep.memory.midway) {
+    //     creep.moveTo(Game.flags.midway);
+    //   } else {
         creep.moveTo(Game.flags.colony);
-      }
+    //   }
     } else {
       if (creep.carry.energy == 0) {
         creep.memory.mining = true;
@@ -17,9 +17,9 @@ var colonist = {
         creep.memory.mining = false;
       }
       if (creep.memory.mining) {
-        var sources = creep.room.find(FIND_SOURCES);
-        if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(sources[0]);
+        var source = creep.pos.findClosestByPath(FIND_SOURCES);
+        if (creep.harvest(source) < 0) {
+          creep.moveTo(source);
         }
       } else {
         var targets = creep.room.find(FIND_CONSTRUCTION_SITES, {
