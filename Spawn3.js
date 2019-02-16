@@ -150,7 +150,7 @@ var Spawn3 = {
                 'role': 'xmine',
                 'home': spawn
             });
-        } else if (xhaulCount < 1) {
+        } else if (xhaulCount < 0) {
             Game.spawns[spawn].createCreep([
                 MOVE, MOVE, MOVE, MOVE, MOVE,
                 CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY
