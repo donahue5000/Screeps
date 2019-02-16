@@ -158,14 +158,6 @@ var Spawn3 = {
                 'role': 'xhaul',
                 'home': spawn
             });
-        } else if (reserverCount < 0) {
-            Game.spawns[spawn].createCreep([
-                MOVE,
-                CLAIM, CLAIM
-            ], 'res' + (Game.time), {
-                'role': 'reserver',
-                'home': spawn
-            });
         } else if (xbuildCount < 1) {
             Game.spawns[spawn].createCreep([
                 MOVE, MOVE, MOVE,
@@ -173,6 +165,14 @@ var Spawn3 = {
                 WORK, WORK, WORK
             ], 'xb' + (Game.time), {
                 'role': 'xbuild',
+                'home': spawn
+            });
+        } else if (reserverCount < 0) {
+            Game.spawns[spawn].createCreep([
+                MOVE,
+                CLAIM, CLAIM
+            ], 'res' + (Game.time), {
+                'role': 'reserver',
                 'home': spawn
             });
         } else if (killerCount < 0) {
