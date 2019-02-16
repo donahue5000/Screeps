@@ -124,7 +124,7 @@ var Spawn3 = {
                 'role': 'upgrade',
                 'home': spawn
             });
-        } else if (buildCount < 4) {
+        } else if (buildCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK, WORK, WORK,
                 MOVE, MOVE, MOVE, MOVE,
