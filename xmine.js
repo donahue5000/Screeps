@@ -1,8 +1,8 @@
 var xmine = {
   run: function(creep) {
 
-    if (!creep.pos.isEqualTo(Game.flags.minex.pos)) {
-      creep.moveTo(Game.flags.minex.pos);
+    if (!creep.pos.isEqualTo(Game.flags[creep.memory.home].pos)) {
+      creep.moveTo(Game.flags[creep.memory.home].pos);
     } else {
       var sources = creep.room.find(FIND_SOURCES);
       target = creep.pos.findClosestByRange(sources);

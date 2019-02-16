@@ -124,11 +124,11 @@ var Spawn3 = {
         'role': 'upgrade',
         'home': spawn
       });
-    } else if (buildCount < 3) {
+    } else if (buildCount < 2) {
       Game.spawns[spawn].createCreep([
-        WORK, WORK,
-        MOVE, MOVE, MOVE,
-        CARRY, CARRY, CARRY, CARRY
+        WORK, WORK, WORK,
+        MOVE, MOVE, MOVE, MOVE,
+        CARRY, CARRY, CARRY, CARRY, CARRY, CARRY
       ], 'b' + (Game.time), {
         'role': 'build',
         'home': spawn

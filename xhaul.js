@@ -8,8 +8,8 @@ var xhaul = {
     }
 
     if (creep.memory.hauling == false) {
-      if (creep.room != Game.flags.minex.room) {
-        creep.moveTo(Game.flags.minex);
+      if (creep.room != Game.flags[creep.memory.home].room) {
+        creep.moveTo(Game.flags[creep.memory.home]);
       } else {
         var sources = creep.room.find(FIND_DROPPED_RESOURCES, {filter: (stuff) => stuff.amount > 50});
         if (sources.length > 0) {

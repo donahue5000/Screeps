@@ -1,7 +1,7 @@
 var xbuild = {
   run: function(creep) {
-    if (creep.room != Game.flags.minex.room) {
-      creep.moveTo(Game.flags.minex);
+    if (creep.room != Game.flags[creep.memory.home].room) {
+      creep.moveTo(Game.flags[creep.memory.home]);
     } else {
       if (creep.memory.building && creep.carry.energy == 0) {
         creep.memory.building = false;
