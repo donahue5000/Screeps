@@ -167,7 +167,7 @@ var Spawn3 = {
                 'role': 'xbuild',
                 'home': spawn
             });
-        } else if (reserverCount < 0) {
+        } else if (reserverCount < 1) {
             Game.spawns[spawn].createCreep([
                 MOVE,
                 CLAIM, CLAIM
