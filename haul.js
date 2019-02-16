@@ -21,7 +21,8 @@ var haul = {
                         structure.store[RESOURCE_ENERGY] > 0
                 });
                 if (sources.length > 0) {
-                    sources = sources.sort((x1, x2) => x2.store[RESOURCE_ENERGY] - x1.store[RESOURCE_ENERGY]);
+                    sources = sources.sort((x1, x2) =>
+                        x2.store[RESOURCE_ENERGY] - x1.store[RESOURCE_ENERGY]);
                 } else {
                     sources = creep.room.find(FIND_STRUCTURES, {
                         filter: (blerg) =>
@@ -36,7 +37,8 @@ var haul = {
             creep.memory.hauling = true;
             var targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
+                    return (structure.structureType == STRUCTURE_EXTENSION ||
+                        structure.structureType == STRUCTURE_SPAWN) &&
                         structure.energy < structure.energyCapacity;
                 }
             });
