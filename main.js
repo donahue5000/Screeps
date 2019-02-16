@@ -8,6 +8,7 @@ var xhaul = require('xhaul');
 var reserver = require('reserver');
 var xbuild = require('xbuild');
 var killer = require('killer');
+var breacher = require('breacher');
 var claim = require('claim');
 var colonist = require('colonist');
 var Spawn1 = require('Spawn1');
@@ -55,8 +56,10 @@ module.exports.loop = function() {
       claim.run(creep);
     } else if (creep.memory.role == 'colonist') {
       colonist.run(creep);
+    } else if (creep.memory.role == 'breacher') {
+      breacher.run(creep);
     }
   }
 }
 
-//Wednesday
+

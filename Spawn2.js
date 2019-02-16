@@ -95,7 +95,7 @@ var Spawn2 = {
         'home': spawn
       });
     }
-    if (haulCount < 1) {
+    if (haulCount < 2) {
       Game.spawns[spawn].createCreep([
         MOVE, MOVE, MOVE, MOVE, MOVE,
         CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY
@@ -112,7 +112,7 @@ var Spawn2 = {
         'role': 'haul',
         'home': spawn
       });
-    } else if (upgradeCount <  1) {
+    } else if (upgradeCount <  3) {
       Game.spawns[spawn].createCreep([
         WORK, WORK, WORK, WORK, WORK,
         MOVE,
