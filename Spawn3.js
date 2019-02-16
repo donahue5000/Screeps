@@ -158,7 +158,7 @@ var Spawn3 = {
                 'role': 'xhaul',
                 'home': spawn
             });
-        } else if (reserverCount < 1) {
+        } else if (reserverCount < 0) {
             Game.spawns[spawn].createCreep([
                 MOVE,
                 CLAIM, CLAIM
