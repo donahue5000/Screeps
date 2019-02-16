@@ -98,7 +98,7 @@ var Spawn3 = {
                 'home': spawn
             });
         }
-        if (haulCount < 1) {
+        if (haulCount < 2) {
             Game.spawns[spawn].createCreep([
                 MOVE, MOVE, MOVE, MOVE, MOVE,
                 CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY
