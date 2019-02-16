@@ -42,7 +42,8 @@ var xbuild = {
                         filter: (structure) =>
                             structure.structureType == STRUCTURE_CONTAINER
                     });
-                    sources = sources.sort((x1, x2) => x2.store[RESOURCE_ENERGY] - x1.store[RESOURCE_ENERGY]);
+                    sources = sources.sort((x1, x2) =>
+                        x2.store[RESOURCE_ENERGY] - x1.store[RESOURCE_ENERGY]);
                     if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(sources[0]);
                     }
