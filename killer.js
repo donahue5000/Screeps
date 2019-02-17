@@ -7,11 +7,17 @@ var killer = {
             target = target[0];
             if (!target) {
                 target = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
-                    filter: (struct) => struct.structureType != STRUCTURE_CONTROLLER
+                    filter: (struct) => struct.structureType == STRUCTURE_TOWER
                 });
             }
             if (!target) {
-                var target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
+                target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
+            }
+            if (!target) {
+                 target = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
+                    filter: (struct) => struct.structureType != STRUCTURE_CONTROLLER
+                    && struct.structureType != STRUCTURE_RAMPART
+                });
             }
             if (!target) {
                 creep.moveTo(Game.flags.kill);
@@ -19,8 +25,11 @@ var killer = {
             if (creep.attack(target) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target);
             }
+            //creep.moveTo(Game.flags.kill);
         }
     }
 };
 
 module.exports = killer;
+
+

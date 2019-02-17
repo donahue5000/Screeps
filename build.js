@@ -18,7 +18,7 @@ var build = {
             } else {
                 var targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (x) => x.hits < x.hitsMax &&
-                        (x.hitsMax <= 25000 || x.hits < 50000)
+                        (x.hitsMax <= 25000)
                 });
                 targets = targets.sort((x1, x2) => {
                     return x1.hits - x2.hits

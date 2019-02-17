@@ -28,6 +28,7 @@ var Spawn2 = {
         var killerCount = 0;
         var claimCount = 0;
         var colonistCount = 0;
+        var breacherCount = 0;
 
 
         for (var name in Game.creeps) {
@@ -62,6 +63,8 @@ var Spawn2 = {
                     claimCount++;
                 } else if (creep.memory.role == 'colonist') {
                     colonistCount++;
+                } else if (creep.memory.role == 'breacher') {
+                    breacherCount++;
                 }
             }
         }
@@ -112,7 +115,7 @@ var Spawn2 = {
                 'role': 'haul',
                 'home': spawn
             });
-        } else if (upgradeCount < 3) {
+        } else if (upgradeCount < 2) {
             Game.spawns[spawn].createCreep([
                 WORK, WORK, WORK, WORK, WORK,
                 MOVE,
@@ -121,20 +124,20 @@ var Spawn2 = {
                 'role': 'upgrade',
                 'home': spawn
             });
-        } else if (buildCount < 1) {
+        } else if (buildCount < 3) {
             Game.spawns[spawn].createCreep([
                 WORK,
-                MOVE, MOVE,
-                CARRY, CARRY, CARRY
+                MOVE,
+                CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK, WORK,
-                MOVE, MOVE,
-                CARRY, CARRY
+                WORK, WORK, WORK,
+                MOVE, MOVE, MOVE,
+                CARRY, CARRY, CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
@@ -174,7 +177,8 @@ var Spawn2 = {
             });
         } else if (killerCount < 0) {
             Game.spawns[spawn].createCreep([
-                //TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
+                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
                 MOVE, MOVE, MOVE,
                 ATTACK, ATTACK, ATTACK
             ], 'killer' + (Game.time), {
@@ -197,6 +201,16 @@ var Spawn2 = {
                 WORK
             ], 'colonist' + (Game.time), {
                 'role': 'colonist',
+                'home': spawn
+            });
+        }else if (breacherCount < 0) {
+            Game.spawns[spawn].createCreep([
+                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
+                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, 
+                MOVE, MOVE, MOVE, MOVE, MOVE, 
+                ATTACK, ATTACK, ATTACK, ATTACK, ATTACK
+            ], 'breacher' + (Game.time), {
+                'role': 'breacher',
                 'home': spawn
             });
         }
