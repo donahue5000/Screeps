@@ -98,8 +98,14 @@ var Spawn2 = {
                 'home': spawn
             });
         }
-        if (haulCount < 2) {
+        if (haulCount < 1) {
             Game.spawns[spawn].createCreep([
+                MOVE, MOVE, MOVE, MOVE, MOVE,
+                CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+                
+                MOVE, MOVE, MOVE, MOVE, MOVE,
+                CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+                
                 MOVE, MOVE, MOVE, MOVE, MOVE,
                 CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY
             ], 'h' + (Game.time), {
@@ -115,29 +121,29 @@ var Spawn2 = {
                 'role': 'haul',
                 'home': spawn
             });
-        } else if (upgradeCount < 2) {
+        } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK, WORK, WORK, WORK, WORK,
+                WORK, 
                 MOVE,
-                CARRY, CARRY
+                CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
             });
-        } else if (buildCount < 3) {
+        } else if (buildCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,
-                MOVE,
-                CARRY
+                WORK, WORK, WORK,
+                MOVE, MOVE, MOVE,
+                CARRY, CARRY, CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK, WORK, WORK,
-                MOVE, MOVE, MOVE,
-                CARRY, CARRY, CARRY
+                WORK, WORK,
+                MOVE, MOVE,
+                CARRY, CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
@@ -177,18 +183,17 @@ var Spawn2 = {
             });
         } else if (killerCount < 0) {
             Game.spawns[spawn].createCreep([
-                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
-                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
-                MOVE, MOVE, MOVE,
-                ATTACK, ATTACK, ATTACK
+                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
+                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
+                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE
             ], 'killer' + (Game.time), {
                 'role': 'killer',
                 'home': spawn
             });
         } else if (claimCount < 0) {
             Game.spawns[spawn].createCreep([
-                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH,
-                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH,
+                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
                 CLAIM
             ], 'claim' + (Game.time), {
                 'role': 'claim',
@@ -196,19 +201,18 @@ var Spawn2 = {
             });
         } else if (colonistCount < 0) {
             Game.spawns[spawn].createCreep([
-                MOVE, MOVE,
-                CARRY,
-                WORK
+                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH,
+                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+                MOVE, MOVE, MOVE, MOVE, MOVE,
+                CARRY, CARRY, CARRY, CARRY, CARRY,
+                WORK, WORK, WORK, WORK, WORK
             ], 'colonist' + (Game.time), {
                 'role': 'colonist',
                 'home': spawn
             });
         }else if (breacherCount < 0) {
             Game.spawns[spawn].createCreep([
-                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
-                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, 
-                MOVE, MOVE, MOVE, MOVE, MOVE, 
-                ATTACK, ATTACK, ATTACK, ATTACK, ATTACK
+                MOVE
             ], 'breacher' + (Game.time), {
                 'role': 'breacher',
                 'home': spawn
