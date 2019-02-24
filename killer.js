@@ -1,17 +1,27 @@
 var killer = {
     run: function(creep) {
+        
+        if (!creep.memory.midwaykill){
+            if (creep.pos.isEqualTo(Game.flags.midwaykill)){
+                creep.memory.midwaykill = true;
+            } else {
+              creep.moveTo(Game.flags.midwaykill);
+            }
+        }else 
+        
+        
         if (creep.room != Game.flags.kill.room) {
             creep.moveTo(Game.flags.kill);
         } else {
-            var target = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
+            var target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
+            if (!target) {
+                target = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
                     filter: (struct) => struct.structureType == STRUCTURE_TOWER
                 });
+            }
             if (!target) {
                 target = creep.room.find(FIND_HOSTILE_SPAWNS);
                 target = target[0];
-            }
-            if (!target) {
-                target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
             }
             if (!target) {
                  target = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {

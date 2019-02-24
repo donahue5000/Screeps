@@ -1,3 +1,11 @@
+//energy gather- creep capacity, priority
+//creep destination coordination
+//killers atack under flag first
+//auto safe mode
+//links
+
+
+
 var build = require('build');
 var upgrade = require('upgrade');
 var mine = require('mine');

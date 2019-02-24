@@ -33,7 +33,7 @@ var build = {
             var sources = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) =>
                     structure.structureType == STRUCTURE_STORAGE &&
-                    structure.store[RESOURCE_ENERGY] > 0
+                    structure.store[RESOURCE_ENERGY] >= creep.carryCapacity
             });
             if (sources.length > 0) {
                 if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -43,7 +43,7 @@ var build = {
                 sources = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) =>
                         structure.structureType == STRUCTURE_CONTAINER &&
-                        structure.store[RESOURCE_ENERGY] > 200
+                        structure.store[RESOURCE_ENERGY] >= creep.carryCapacity
                 });
                 if (sources.length > 0) {
                     var target = creep.pos.findClosestByRange(sources);
@@ -53,7 +53,7 @@ var build = {
                 } else {
                     sources = creep.room.find(FIND_DROPPED_RESOURCES, {
                         filter: (stuff) =>
-                            stuff.amount > 100
+                            stuff.amount > creep.carryCapacity
                     });
                     if (sources.length > 0) {
                         var target = creep.pos.findClosestByRange(sources);

@@ -123,7 +123,7 @@ var Spawn2 = {
             });
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK, 
+                WORK, WORK, WORK, WORK, WORK, 
                 MOVE,
                 CARRY
             ], 'u' + (Game.time), {
@@ -185,6 +185,7 @@ var Spawn2 = {
             Game.spawns[spawn].createCreep([
                 TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
                 TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
+                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
                 MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE
             ], 'killer' + (Game.time), {
                 'role': 'killer',
@@ -212,10 +213,14 @@ var Spawn2 = {
             });
         }else if (breacherCount < 0) {
             Game.spawns[spawn].createCreep([
-                MOVE
+                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH,
+                MOVE, MOVE, MOVE, MOVE, MOVE, 
+                MOVE, MOVE, MOVE, MOVE, MOVE, 
+                ATTACK, ATTACK, ATTACK, ATTACK, ATTACK
             ], 'breacher' + (Game.time), {
                 'role': 'breacher',
-                'home': spawn
+                'home': spawn,
+                'midway': true
             });
         }
     }

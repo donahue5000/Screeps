@@ -115,11 +115,12 @@ var Spawn3 = {
                 'role': 'haul',
                 'home': spawn
             });
-        } else if (upgradeCount < 3) {
+        } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK, WORK, WORK, WORK, WORK,
+                WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, 
+                WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, 
                 MOVE,
-                CARRY, CARRY
+                CARRY, CARRY, CARRY, CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn

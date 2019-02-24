@@ -90,7 +90,7 @@ var Spawn4 = {
         }
         if (mineCount < 1 && Game.spawns[spawn].room.energyAvailable < 550) {
             Game.spawns[spawn].createCreep([
-                WORK, WORK,
+                WORK,
                 MOVE
             ], 'emergmine' + (Game.time), {
                 'role': 'mine',
@@ -107,7 +107,7 @@ var Spawn4 = {
                 'home': spawn
             });
         }
-        if (haulCount < 1 && Game.spawns[spawn].room.energyAvailable < 1000) {
+        if (haulCount < 1 && Game.spawns[spawn].room.energyAvailable < 550) {
             Game.spawns[spawn].createCreep([
                 MOVE, MOVE,
                 CARRY, CARRY, CARRY, CARRY
@@ -117,31 +117,27 @@ var Spawn4 = {
             });
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK, WORK,
+                WORK, WORK, WORK,
                 MOVE, MOVE,
-                CARRY, CARRY
+                CARRY, CARRY, CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
             });
-        } else if (buildCount < 2) {
+        } else if (buildCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK, WORK, WORK, WORK,
+                WORK,
                 MOVE,
-                CARRY, CARRY
+                CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                // WORK, WORK, WORK, WORK, WORK,
-                // MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
-                // CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
-                
-                WORK,
-                MOVE,
-                CARRY
+                WORK, WORK,
+                MOVE, MOVE, MOVE,
+                CARRY, CARRY, CARRY, CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
@@ -181,11 +177,10 @@ var Spawn4 = {
             });
         } else if (killerCount < 0) {
             Game.spawns[spawn].createCreep([
-                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
-                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
-                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
-                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
-                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE
+                MOVE,
+                RANGED_ATTACK
+                // MOVE, MOVE, MOVE, MOVE,
+                // ATTACK, ATTACK, ATTACK, ATTACK
             ], 'killer' + (Game.time), {
                 'role': 'killer',
                 'home': spawn
@@ -209,7 +204,8 @@ var Spawn4 = {
             });
         } else if (breacherCount < 0) {
             Game.spawns[spawn].createCreep([
-                TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,ATTACK
+                MOVE, MOVE, MOVE,
+                ATTACK, ATTACK, ATTACK
             ], 'breacher' + (Game.time), {
                 'role': 'breacher',
                 'home': spawn,

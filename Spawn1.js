@@ -98,18 +98,19 @@ var Spawn1 = {
             });
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,
+                WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, 
+                WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, 
                 MOVE,
-                CARRY
+                CARRY, CARRY, CARRY, CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
             });
         } else if (buildCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK, WORK,
-                MOVE, MOVE,
-                CARRY, CARRY
+                WORK,
+                MOVE,
+                CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
@@ -191,10 +192,31 @@ var Spawn1 = {
             });
         } else if (breacherCount < 0) {
             Game.spawns[spawn].createCreep([
-                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
-                TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
-                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
-                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+                // TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
+                // TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, 
+                // TOUGH, TOUGH,
+                // MOVE, MOVE, MOVE, MOVE, MOVE, 
+                // MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, 
+                // MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+                // ATTACK, ATTACK, ATTACK
+                
+                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, 
+                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, 
+                MOVE, MOVE, MOVE, MOVE, MOVE,
+                ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, 
+                ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, 
+                ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK
+            ], 'breacher' + (Game.time), {
+                'role': 'breacher',
+                'home': spawn
+            });
+            
+            Game.spawns.Spawn1a.createCreep([
+                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, 
+                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, 
+                MOVE, MOVE, MOVE, MOVE, MOVE,
+                ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, 
+                ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, 
                 ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK
             ], 'breacher' + (Game.time), {
                 'role': 'breacher',

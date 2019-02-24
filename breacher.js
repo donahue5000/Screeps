@@ -17,7 +17,7 @@ var breacher = {
                     creep.moveTo(Game.flags.breach);
                 }
             }
-        }
+    }
 };
 
 module.exports = breacher;
