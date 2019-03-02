@@ -9,7 +9,7 @@ var xhaul = {
 
         if (creep.memory.hauling == false) {
             if (creep.room != Game.flags[creep.memory.home].room) {
-                creep.moveTo(Game.flags[creep.memory.home]);
+                creep.moveTo(Game.flags[creep.memory.home], {reusePath:15});
             } else {
                 var sources = creep.room.find(FIND_DROPPED_RESOURCES, {
                     filter: (stuff) => stuff.amount > 50
@@ -26,13 +26,13 @@ var xhaul = {
                     });
                     sources = sources.sort((x1, x2) => x2.store[RESOURCE_ENERGY] - x1.store[RESOURCE_ENERGY]);
                     if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(sources[0]);
+                        creep.moveTo(sources[0], {reusePath:15});
                     }
                 }
             }
         } else {
             if (creep.room != Game.spawns[creep.memory.home].room) {
-                creep.moveTo(Game.spawns[creep.memory.home]);
+                creep.moveTo(Game.spawns[creep.memory.home], {reusePath:15});
             } else {
                 var targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
@@ -59,7 +59,7 @@ var xhaul = {
                 if (targets.length > 0) {
                     var target = creep.pos.findClosestByRange(targets);
                     if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target);
+                        creep.moveTo(target, {reusePath:15});
                     }
                 }
             }

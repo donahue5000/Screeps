@@ -18,7 +18,7 @@ var haul = {
                 sources = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) =>
                         structure.structureType == STRUCTURE_CONTAINER &&
-                        structure.store[RESOURCE_ENERGY] > 0
+                        structure.store[RESOURCE_ENERGY] > 200
                 });
                 if (sources.length > 0) {
                     sources = sources.sort((x1, x2) =>

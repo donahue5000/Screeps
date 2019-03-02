@@ -3,6 +3,17 @@
 //killers atack under flag first
 //auto safe mode
 //links
+//optimize
+//scout signer
+//fill turret first
+//better pathfinding
+//turret filter non damage dealers
+//not all turrets fire
+//minerals
+//labs
+//market
+//recall outsiders
+//war mode
 
 
 
@@ -25,11 +36,29 @@ var Spawn3 = require('Spawn3');
 var Spawn4 = require('Spawn4');
 
 module.exports.loop = function() {
+    
+    
+    // for (var i in Game.creeps){
+    //     var x = Game.creeps[i];
+    //     if (x.memory.role == 'breacher'){
+    //         x.memory.role = 'killer';
+    //     }
+    // }
+    
+    // for (var i in Game.creeps){
+    //     var x = Game.creeps[i];
+    //     if (x.memory.role == 'breacher'){
+    //         x.memory.midwaybreach2 = true;
+    //     }
+    // }
+    
+    
+    console.log(Game.cpu.bucket);
+    
 
     for (var name in Memory.creeps) {
         if (!Game.creeps[name]) {
             delete Memory.creeps[name];
-            console.log('Clearing non-existing creep memory:', name);
         }
     }
 
@@ -44,6 +73,10 @@ module.exports.loop = function() {
         var creep = Game.creeps[name];
         if (creep.memory.role == 'mine') {
             mine.run(creep);
+        } else if (creep.memory.role == 'killer') {
+            killer.run(creep);
+        } else if (creep.memory.role == 'breacher') {
+            breacher.run(creep);
         } else if (creep.memory.role == 'upgrade') {
             upgrade.run(creep);
         } else if (creep.memory.role == 'build') {
@@ -60,14 +93,10 @@ module.exports.loop = function() {
             reserver.run(creep);
         } else if (creep.memory.role == 'xbuild') {
             xbuild.run(creep);
-        } else if (creep.memory.role == 'killer') {
-            killer.run(creep);
         } else if (creep.memory.role == 'claim') {
             claim.run(creep);
         } else if (creep.memory.role == 'colonist') {
             colonist.run(creep);
-        } else if (creep.memory.role == 'breacher') {
-            breacher.run(creep);
         }
     }
 }
