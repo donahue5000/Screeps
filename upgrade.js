@@ -35,8 +35,7 @@ var upgrade = {
                     }
                 } else {
                     sources = creep.room.find(FIND_DROPPED_RESOURCES, {
-                        filter: (stuff) =>
-                            stuff.amount > creep.carryCapacity
+                        filter: (stuff) => stuff.amount >= creep.carryCapacity
                     });
                     if (sources.length > 0) {
                         var target = creep.pos.findClosestByRange(sources);
@@ -47,6 +46,11 @@ var upgrade = {
                 }
             }
         }
+        
+        
+        // if (creep.signController(creep.room.controller, '') < 0){
+        //     creep.moveTo(creep.room.controller);
+        // }
     }
 };
 

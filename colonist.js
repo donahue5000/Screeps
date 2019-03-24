@@ -1,14 +1,8 @@
 var colonist = {
     run: function(creep) {
         if (creep.room != Game.flags.colony.room) {
-              if (creep.pos.isEqualTo(Game.flags.midway.pos)) {
-                creep.memory.midway = true;
-              }
-              if (!creep.memory.midway) {
-                creep.moveTo(Game.flags.midway);
-              } else {
-            creep.moveTo(Game.flags.colony);
-              }
+            creep.moveTo(Game.flags.colony, {reusePath:15});
+              
         } else {
             if (creep.carry.energy == 0) {
                 creep.memory.mining = true;

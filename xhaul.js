@@ -12,7 +12,7 @@ var xhaul = {
                 creep.moveTo(Game.flags[creep.memory.home], {reusePath:15});
             } else {
                 var sources = creep.room.find(FIND_DROPPED_RESOURCES, {
-                    filter: (stuff) => stuff.amount > 50
+                    filter: (stuff) => stuff.amount > 0
                 });
                 if (sources.length > 0) {
                     var target = sources[0];
