@@ -66,7 +66,7 @@ var killer = {
                 if (!target) {
                     creep.moveTo(Game.flags.kill);
                 } else 
-                if (creep.attack(target) < 0) {
+                if (creep.rangedAttack(target) < 0) {
                     creep.moveTo(target);
                 }
             }

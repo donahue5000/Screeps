@@ -1,4 +1,4 @@
-var Spawn1 = {
+var Spawn6 = {
     run: function(spawn) {
 
         var towers = Game.spawns[spawn].room.find(FIND_STRUCTURES, {
@@ -84,7 +84,7 @@ var Spawn1 = {
 
         if (haulCount < 1) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,
+                MOVE,
                 CARRY,CARRY
             ], 'h' + (Game.time), {
                 'role': 'haul',
@@ -101,12 +101,10 @@ var Spawn1 = {
             });
         } else if (haulCount < 2) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
-                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
+                MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY
             ], 'h' + (Game.time), {
                 'role': 'haul',
-                'source': nextSource,
                 'home': spawn
             });
         } else if (mineCount < 2) {
@@ -127,11 +125,11 @@ var Spawn1 = {
                 'role': 'build',
                 'home': spawn
             });
-        } else if (upgradeCount < 1) {
+        } else if (upgradeCount < 6) {
             Game.spawns[spawn].createCreep([
-                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
-                MOVE,
-                CARRY,CARRY,CARRY,CARRY
+                WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
@@ -140,40 +138,40 @@ var Spawn1 = {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,
                 MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY
+                CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
             });
-        } else if (xmineCount < 1) {
+        } else if (xmineCount < 0) {
             Game.spawns[spawn].createCreep([
-                TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,
-                MOVE,MOVE,MOVE,MOVE,
                 WORK,WORK,WORK,WORK,WORK,
-                ATTACK,ATTACK
+                MOVE,MOVE
             ], 'xm' + (Game.time), {
                 'role': 'xmine',
                 'home': spawn
             });
-        } else if (xhaulCount < 2) {
+        } else if (xhaulCount < 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
+                MOVE, MOVE, MOVE, MOVE, MOVE,
+                CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY
             ], 'xh' + (Game.time), {
                 'role': 'xhaul',
                 'home': spawn
             });
-        } else if (reserverCount < 1) {
+        } else if (reserverCount < 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,
-                CLAIM,CLAIM
+                MOVE,
+                CLAIM, CLAIM
             ], 'res' + (Game.time), {
                 'role': 'reserver',
                 'home': spawn
             });
         } else if (xbuildCount < 0) {
             Game.spawns[spawn].createCreep([
-                MOVE
+                MOVE, MOVE, MOVE,
+                CARRY, CARRY, CARRY,
+                WORK, WORK, ATTACK
             ], 'xb' + (Game.time), {
                 'role': 'xbuild',
                 'home': spawn
@@ -187,15 +185,14 @@ var Spawn1 = {
             });
         } else if (killerCount < 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,
-                ATTACK,ATTACK
+                MOVE
             ], 'killer' + (Game.time), {
                 'role': 'killer',
                 'home': spawn
             });
         } else if (claimCount < 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,
                 CLAIM
             ], 'claim' + (Game.time), {
                 'role': 'claim',
@@ -203,10 +200,9 @@ var Spawn1 = {
             });
         } else if (colonistCount < 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
-                WORK,WORK,WORK,
-                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
-                ATTACK,ATTACK
+                MOVE,
+                WORK,
+                CARRY,CARRY,CARRY
             ], 'colonist' + (Game.time), {
                 'role': 'colonist',
                 'home': spawn
@@ -225,4 +221,4 @@ var Spawn1 = {
     }
 };
 
-module.exports = Spawn1;
+module.exports = Spawn6;

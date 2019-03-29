@@ -7,7 +7,7 @@ var claim = {
                 creep.moveTo(creep.room.controller);
             } else {
                 creep.signController(creep.room.controller, 
-                    'clickety clack clack... whoops... clickety clack clack');
+                    'click clack clack... derp... clack click clack');
             }
         }
     }

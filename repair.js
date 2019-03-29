@@ -12,7 +12,7 @@ var repair = {
         if (creep.memory.building && !creep.memory.localBuild) {
             var targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (x) => x.hits < x.hitsMax &&
-                    (x.hitsMax > 25000 || x.hits < 1000)
+                    (x.hitsMax > 25000 || x.hits < 2000)
             });
             targets = targets.sort((x1, x2) => {
                 return x1.hits - x2.hits
