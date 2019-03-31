@@ -9,7 +9,7 @@ var xhaul = {
 
         if (creep.memory.hauling == false) {
             if (creep.room != Game.flags[creep.memory.home].room) {
-                creep.moveTo(Game.flags[creep.memory.home], {reusePath:15});
+                creep.moveTo(Game.flags[creep.memory.home], {reusePath:50});
             } else {
                 var sources = creep.room.find(FIND_DROPPED_RESOURCES, {
                     filter: (stuff) => stuff.amount > 0
@@ -32,7 +32,7 @@ var xhaul = {
             }
         } else {
             if (creep.room != Game.spawns[creep.memory.home].room) {
-                creep.moveTo(Game.spawns[creep.memory.home], {reusePath:15});
+                creep.moveTo(Game.spawns[creep.memory.home], {reusePath:50});
             } else {
                 var targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {

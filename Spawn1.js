@@ -1,16 +1,19 @@
 var Spawn1 = {
     run: function(spawn) {
 
-        var towers = Game.spawns[spawn].room.find(FIND_STRUCTURES, {
-            filter: (structure) => structure.structureType == STRUCTURE_TOWER
-        });
-        for (var tower in towers) {
-            tower = towers[tower];
-            var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-            if (closestHostile) {
-                tower.attack(closestHostile);
-            }
-        }
+        // var towers = Game.spawns[spawn].room.find(FIND_STRUCTURES, {
+        //     filter: (structure) => structure.structureType == STRUCTURE_TOWER
+        // });
+        // for (var tower in towers) {
+        //     tower = towers[tower];
+        //     var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        //     if (closestHostile) {
+        //         tower.attack(closestHostile);
+        //     }
+        // }
+        
+        
+        
 
 
         var source0 = 0;
@@ -30,6 +33,7 @@ var Spawn1 = {
         var colonistCount = 0;
         var breacherCount = 0;
         var tankCount = 0;
+        var xguardCount = 0;
 
 
         for (var name in Game.creeps) {
@@ -68,6 +72,8 @@ var Spawn1 = {
                     breacherCount++;
                 } else if (creep.memory.role == 'tank') {
                     tankCount++;
+                } else if (creep.memory.role == 'xguard') {
+                    xguardCount++;
                 }
             }
         }
@@ -93,7 +99,7 @@ var Spawn1 = {
         } else if (mineCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,
-                MOVE
+                MOVE,CARRY
             ], 'm' + (Game.time), {
                 'role': 'mine',
                 'source': nextSource,
@@ -106,13 +112,12 @@ var Spawn1 = {
                 CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'h' + (Game.time), {
                 'role': 'haul',
-                'source': nextSource,
                 'home': spawn
             });
         } else if (mineCount < 2) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,
-                MOVE
+                MOVE,CARRY
             ], 'm' + (Game.time), {
                 'role': 'mine',
                 'source': nextSource,
@@ -130,8 +135,8 @@ var Spawn1 = {
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
-                MOVE,
-                CARRY,CARRY,CARRY,CARRY
+                MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
@@ -139,25 +144,33 @@ var Spawn1 = {
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,
-                MOVE,MOVE,
+                MOVE,MOVE,MOVE,
                 CARRY,CARRY,CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
             });
-        } else if (xmineCount < 1) {
+        } else if (xguardCount < 1) {
             Game.spawns[spawn].createCreep([
                 TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,
-                MOVE,MOVE,MOVE,MOVE,
-                WORK,WORK,WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
                 ATTACK,ATTACK
+            ], 'xg' + (Game.time), {
+                'role': 'xguard',
+                'home': spawn
+            });
+        } else if (xmineCount < 1) {
+            Game.spawns[spawn].createCreep([
+                MOVE,MOVE,
+                WORK,WORK,WORK,WORK,WORK,WORK
             ], 'xm' + (Game.time), {
                 'role': 'xmine',
                 'home': spawn
             });
-        } else if (xhaulCount < 2) {
+        } else if (xhaulCount < 1) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                 CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'xh' + (Game.time), {
                 'role': 'xhaul',
@@ -222,6 +235,9 @@ var Spawn1 = {
                 'midwaybreach3': true
             });
         }
+        
+        
+        
     }
 };
 

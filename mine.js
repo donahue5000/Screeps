@@ -27,6 +27,25 @@ var mine = {
                 }
             }
         }
+        
+        
+        
+        if (creep.carryCapacity > 0 && creep.carry[RESOURCE_ENERGY] == creep.carryCapacity){
+            
+            
+            var thisLink = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                filter: (thing) => thing.structureType == STRUCTURE_LINK});
+            if (thisLink){
+                if (creep.pos.getRangeTo(thisLink) == 1){
+                    creep.transfer(thisLink, RESOURCE_ENERGY);
+                }
+            }
+        }
+        
+        
+        
+        
+        
     }
 };
 
