@@ -1,7 +1,13 @@
 var colonist = {
     run: function(creep) {
         if (creep.room != Game.flags.colony.room) {
-            creep.moveTo(Game.flags.colony, {reusePath:15});
+            creep.moveTo(Game.flags.colony, {reusePath:100});
+            // if (!creep.memory.colonyMidpoint){
+            //     creep.moveTo(Game.flags.colonyMidpoint);
+            //     if (creep.pos == Game.flags.colonyMidpoint){
+            //         creep.memory.colonyMidpoint = true;
+            //     }
+            // }
               
         } else {
             if (creep.carry.energy == 0) {
@@ -28,7 +34,8 @@ var colonist = {
                     var targets = creep.room.find(FIND_STRUCTURES, {
                         filter: (structure) => {
                             return (structure.structureType == STRUCTURE_EXTENSION ||
-                                    structure.structureType == STRUCTURE_SPAWN) &&
+                                    structure.structureType == STRUCTURE_SPAWN ||
+                                    structure.structureType == STRUCTURE_TOWER) &&
                                 structure.energy < structure.energyCapacity;
                         }
                     });

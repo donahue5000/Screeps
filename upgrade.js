@@ -26,7 +26,7 @@ var upgrade = {
                 sources = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) =>
                         structure.structureType == STRUCTURE_CONTAINER &&
-                        structure.store[RESOURCE_ENERGY] >= creep.carryCapacity
+                        structure.store[RESOURCE_ENERGY] >= 1000
                 });
                 if (sources.length > 0) {
                     var target = creep.pos.findClosestByRange(sources);
@@ -34,9 +34,11 @@ var upgrade = {
                         creep.moveTo(target);
                     }
                 } else {
-                    sources = creep.room.find(FIND_DROPPED_RESOURCES, {
-                        filter: (stuff) => stuff.amount >= creep.carryCapacity
-                    });
+                    sources = creep.room.find(FIND_DROPPED_RESOURCES
+                        // , {
+                        //     filter: (stuff) => stuff.amount >= creep.carryCapacity
+                        // }
+                    );
                     if (sources.length > 0) {
                         var target = creep.pos.findClosestByRange(sources);
                         if (creep.pickup(target) == ERR_NOT_IN_RANGE) {

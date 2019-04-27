@@ -19,7 +19,7 @@ var repair = {
             });
             if (targets.length) {
                 if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0]);
+                    creep.moveTo(targets[0], {maxRooms:1});
                 } else {
                     creep.memory.localBuild = true;
                     creep.memory.localTarget = targets[0].id;

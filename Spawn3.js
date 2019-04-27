@@ -93,21 +93,13 @@ var Spawn3 = {
                 'role': 'haul',
                 'home': spawn
             });
-        } else if (mineCount < 1) {
+        } else if (mineCount < 1 && Game.spawns[spawn].room.energyAvailable < 600) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,
                 MOVE,CARRY
             ], 'm' + (Game.time), {
                 'role': 'mine',
                 'source': nextSource,
-                'home': spawn
-            });
-        } else if (haulCount < 2) {
-            Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
-            ], 'h' + (Game.time), {
-                'role': 'haul',
                 'home': spawn
             });
         } else if (mineCount < 2) {
@@ -123,7 +115,7 @@ var Spawn3 = {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,
                 MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY
+                CARRY,CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
@@ -131,17 +123,18 @@ var Spawn3 = {
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
-                MOVE,
-                CARRY,CARRY
+                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
+                MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,
-                MOVE,
-                CARRY
+                WORK,WORK,
+                MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn

@@ -90,33 +90,25 @@ var Spawn5 = {
 
         if (haulCount < 1) {
             Game.spawns[spawn].createCreep([
-                MOVE,
-                CARRY,CARRY
+                MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY
             ], 'h' + (Game.time), {
                 'role': 'haul',
                 'home': spawn
             });
-        } else if (mineCount < 1) {
+        } else if (mineCount < 1 && Game.spawns[spawn].room.energyAvailable < 600) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,
-                MOVE
+                MOVE,CARRY
             ], 'm' + (Game.time), {
                 'role': 'mine',
                 'source': nextSource,
                 'home': spawn
             });
-        } else if (haulCount < 2) {
-            Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
-            ], 'h' + (Game.time), {
-                'role': 'haul',
-                'home': spawn
-            });
         } else if (mineCount < 2) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,
-                MOVE
+                MOVE,CARRY
             ], 'm' + (Game.time), {
                 'role': 'mine',
                 'source': nextSource,
@@ -134,13 +126,14 @@ var Spawn5 = {
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
-                MOVE,
-                CARRY,CARRY
+                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
+                MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
             });
-        } else if (repairCount < 2) {
+        } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,
                 MOVE,MOVE,MOVE,MOVE,MOVE,

@@ -5,6 +5,9 @@ var xhaul = {
             creep.memory.hauling = true;
         } else if (creep.carry.energy == 0) {
             creep.memory.hauling = false;
+            if (creep.ticksToLive < 100){
+                creep.suicide;
+            }
         }
 
         if (creep.memory.hauling == false) {

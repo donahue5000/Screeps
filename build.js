@@ -51,10 +51,12 @@ var build = {
                         creep.moveTo(target);
                     }
                 } else {
-                    sources = creep.room.find(FIND_DROPPED_RESOURCES, {
+                    sources = creep.room.find(FIND_DROPPED_RESOURCES
+                        , {
                         filter: (stuff) =>
                             stuff.amount > creep.carryCapacity
-                    });
+                        }
+                    );
                     if (sources.length > 0) {
                         var target = creep.pos.findClosestByRange(sources);
                         if (creep.pickup(target) == ERR_NOT_IN_RANGE) {

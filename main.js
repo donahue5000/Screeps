@@ -1,4 +1,4 @@
-//links
+//creep counting from spawn name memory to room memory
 //minerals
 //labs
 //market
@@ -38,12 +38,12 @@ var xhaul = require('xhaul');
 var reserver = require('reserver');
 var towerController = require('towerController');
 var linkController = require('linkController');
-//var xbuild = require('xbuild');
-//var killer = require('killer');
-//var breacher = require('breacher');
-//var claim = require('claim');
-//var colonist = require('colonist');
-//var tank = require('tank');
+var xbuild = require('xbuild');
+var killer = require('killer');
+var breacher = require('breacher');
+var claim = require('claim');
+var colonist = require('colonist');
+var tank = require('tank');
 var xguard = require('xguard');
 var Spawn1 = require('Spawn1');
 var Spawn2 = require('Spawn2');
@@ -51,6 +51,8 @@ var Spawn3 = require('Spawn3');
 var Spawn4 = require('Spawn4');
 var Spawn5 = require('Spawn5');
 var Spawn6 = require('Spawn6');
+var Spawn7 = require('Spawn7');
+var Spawn8 = require('Spawn8');
 
 module.exports.loop = function() {
     
@@ -143,6 +145,18 @@ module.exports.loop = function() {
     
     try{
         Spawn6.run('Spawn6');
+    }catch(e){
+        console.log(e.message);
+    }
+    
+    // try{
+    //     Spawn7.run('7');
+    // }catch(e){
+    //     console.log(e.message);
+    // }
+    
+    try{
+        Spawn8.run('8');
     }catch(e){
         console.log(e.message);
     }
