@@ -13,7 +13,7 @@ var build = {
             if (targets.length > 0) {
                 target = creep.pos.findClosestByRange(targets);
                 if (creep.build(target) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
+                    creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                 }
             } else {
                 var targets = creep.room.find(FIND_STRUCTURES, {
@@ -25,7 +25,7 @@ var build = {
                 if (targets.length) {
                     target = targets[0];
                     if (creep.repair(target) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target);
+                        creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                     }
                 }
             }
@@ -37,7 +37,7 @@ var build = {
             });
             if (sources.length > 0) {
                 if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(sources[0]);
+                    creep.moveTo(sources[0], {maxRooms:1}, {reusePath:15});
                 }
             } else {
                 sources = creep.room.find(FIND_STRUCTURES, {
@@ -48,19 +48,20 @@ var build = {
                 if (sources.length > 0) {
                     var target = creep.pos.findClosestByPath(sources);
                     if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target);
+                        creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                     }
                 } else {
                     sources = creep.room.find(FIND_DROPPED_RESOURCES
                         , {
                         filter: (stuff) =>
-                            stuff.amount > creep.carryCapacity
+                            stuff.amount > 0 &&
+                            stuff.resourceType == RESOURCE_ENERGY
                         }
                     );
                     if (sources.length > 0) {
                         var target = creep.pos.findClosestByRange(sources);
                         if (creep.pickup(target) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(target);
+                            creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                         }
                     }
                 }

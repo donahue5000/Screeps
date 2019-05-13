@@ -31,12 +31,13 @@ var Spawn6 = {
         var breacherCount = 0;
         var tankCount = 0;
         var xguardCount = 0;
+        var mineralBotCount = 0;
 
 
         for (var name in Game.creeps) {
             var creep = Game.creeps[name];
             if (creep.memory.home == spawn) {
-                if (creep.memory.role == 'mine') {
+                if (creep.memory.role == 'mine' && creep.ticksToLive > 250) {
                     mineCount++;
                     if (creep.memory.source == 0) {
                         source0++;
@@ -71,6 +72,8 @@ var Spawn6 = {
                     tankCount++;
                 } else if (creep.memory.role == 'xguard') {
                     xguardCount++;
+                }else if (creep.memory.role == 'mineralBot') {
+                    mineralBotCount++;
                 }
             }
         }
@@ -113,9 +116,9 @@ var Spawn6 = {
             });
         } else if (buildCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,WORK,
-                MOVE,MOVE,
-                CARRY,CARRY
+                WORK,
+                MOVE,
+                CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
@@ -123,8 +126,8 @@ var Spawn6 = {
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
-                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
-                MOVE,MOVE,
+                WORK,WORK,WORK,WORK,WORK,
+                MOVE,
                 CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
@@ -221,6 +224,15 @@ var Spawn6 = {
                 'midwaybreach': true,
                 'midwaybreach2': true,
                 'midwaybreach3': true
+            });
+        } else if (mineralBotCount < 1) {
+            Game.spawns[spawn].createCreep([
+                MOVE,
+                WORK,WORK,WORK,
+                CARRY
+            ], 'minBot' + (Game.time), {
+                'role': 'mineralBot',
+                'home': spawn
             });
         }
     }

@@ -9,7 +9,7 @@ var xguard = {
             
             
             if (creep.room != Game.flags[creep.memory.home].room) {
-                creep.moveTo(Game.flags[creep.memory.home], {reusePath:10});
+                creep.moveTo(Game.flags[creep.memory.home], {reusePath:15});
             } else {
                 var target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
                 // if (!target) {

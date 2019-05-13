@@ -31,12 +31,13 @@ var Spawn7 = {
         var breacherCount = 0;
         var tankCount = 0;
         var xguardCount = 0;
+        var mineralBotCount = 0;
 
 
         for (var name in Game.creeps) {
             var creep = Game.creeps[name];
             if (creep.memory.home == spawn) {
-                if (creep.memory.role == 'mine') {
+                if (creep.memory.role == 'mine' && creep.ticksToLive > 100) {
                     mineCount++;
                     if (creep.memory.source == 0) {
                         source0++;
@@ -71,6 +72,8 @@ var Spawn7 = {
                     tankCount++;
                 } else if (creep.memory.role == 'xguard') {
                     xguardCount++;
+                } else if (creep.memory.role == 'mineralBot') {
+                    mineralBotCount++;
                 }
             }
         }
@@ -87,16 +90,16 @@ var Spawn7 = {
 
         if (haulCount < 1) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY
+                MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY
             ], 'h' + (Game.time), {
                 'role': 'haul',
                 'home': spawn
             });
-        } else if (mineCount < 2 && Game.spawns[spawn].room.energyAvailable < 550) {
+        } else if (mineCount < 1 && Game.spawns[spawn].room.energyAvailable < 550) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,
-                MOVE,MOVE
+                MOVE
             ], 'm' + (Game.time), {
                 'role': 'mine',
                 'source': nextSource,
@@ -111,37 +114,37 @@ var Spawn7 = {
                 'source': nextSource,
                 'home': spawn
             });
-        } else if (buildCount < 0) {
+        } else if (buildCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,
-                MOVE,MOVE,
-                CARRY,CARRY
+                MOVE,
+                CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
             });
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,
+                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
                 MOVE,
-                CARRY
+                CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,
-                MOVE,
-                CARRY
+                WORK,WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
             });
         } else if (xguardCount < 0) {
             Game.spawns[spawn].createCreep([
-                TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,
-                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                TOUGH,TOUGH,TOUGH,
+                MOVE,MOVE,MOVE,MOVE,MOVE,
                 ATTACK,ATTACK
             ], 'xg' + (Game.time), {
                 'role': 'xguard',
@@ -150,7 +153,7 @@ var Spawn7 = {
         } else if (xmineCount < 0) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,
-                MOVE,MOVE
+                MOVE,MOVE,MOVE,MOVE,MOVE
             ], 'xm' + (Game.time), {
                 'role': 'xmine',
                 'home': spawn
@@ -166,7 +169,7 @@ var Spawn7 = {
         } else if (reserverCount < 0) {
             Game.spawns[spawn].createCreep([
                 MOVE,
-                CLAIM, CLAIM
+                CLAIM
             ], 'res' + (Game.time), {
                 'role': 'reserver',
                 'home': spawn
@@ -194,21 +197,21 @@ var Spawn7 = {
                 'role': 'killer',
                 'home': spawn
             });
-        } else if (colonistCount < 0) {
-            Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,
-                WORK,WORK,WORK,WORK,
-                CARRY,CARRY,CARRY,CARRY
-            ], 'colonist' + (Game.time), {
-                'role': 'colonist',
-                'home': spawn
-            });
         } else if (claimCount < 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,
+                MOVE,
                 CLAIM
             ], 'claim' + (Game.time), {
                 'role': 'claim',
+                'home': spawn
+            });
+        } else if (colonistCount < 0) {
+            Game.spawns[spawn].createCreep([
+                MOVE,MOVE,
+                WORK,WORK,
+                CARRY,CARRY
+            ], 'colonist' + (Game.time), {
+                'role': 'colonist',
                 'home': spawn
             });
         } else if (breacherCount < 0) {
@@ -220,6 +223,15 @@ var Spawn7 = {
                 'midwaybreach': true,
                 'midwaybreach2': true,
                 'midwaybreach3': true
+            });
+        } else if (mineralBotCount < 1) {
+            Game.spawns[spawn].createCreep([
+                MOVE,MOVE,MOVE,MOVE,
+                WORK,WORK,WORK,WORK,WORK,WORK,
+                CARRY,CARRY,CARRY
+            ], 'minBot' + (Game.time), {
+                'role': 'mineralBot',
+                'home': spawn
             });
         }
     }

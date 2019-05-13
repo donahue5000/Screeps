@@ -1,8 +1,10 @@
+//automate power harvesting
+//upgraders simultaneous actions
 //creep counting from spawn name memory to room memory
-//minerals
 //labs
+//mineral balancing
 //market
-//energy based spawn loop
+//creep body builder
 //creep destination coordination
 //killers atack under flag first
 //auto safe mode
@@ -27,24 +29,18 @@
 //functions - return nearest energy etc
 
 
-
+var mineralBot = require('mineralBot');
 var build = require('build');
 var upgrade = require('upgrade');
 var mine = require('mine');
 var repair = require('repair');
 var haul = require('haul');
-var xmine = require('xmine');
-var xhaul = require('xhaul');
-var reserver = require('reserver');
 var towerController = require('towerController');
 var linkController = require('linkController');
-var xbuild = require('xbuild');
-var killer = require('killer');
-var breacher = require('breacher');
-var claim = require('claim');
-var colonist = require('colonist');
-var tank = require('tank');
-var xguard = require('xguard');
+var powerHarvester = require('powerHarvester');
+var powerGrabber = require('powerGrabber');
+var powerHealer = require('powerHealer');
+
 var Spawn1 = require('Spawn1');
 var Spawn2 = require('Spawn2');
 var Spawn3 = require('Spawn3');
@@ -53,6 +49,19 @@ var Spawn5 = require('Spawn5');
 var Spawn6 = require('Spawn6');
 var Spawn7 = require('Spawn7');
 var Spawn8 = require('Spawn8');
+
+// var colonist = require('colonist');
+// var claim = require('claim');
+
+// var reserver = require('reserver');
+// var xmine = require('xmine');
+// var xhaul = require('xhaul');
+// var xguard = require('xguard');
+
+// var xbuild = require('xbuild');
+// var tank = require('tank');
+var killer = require('killer');
+// var breacher = require('breacher');
 
 module.exports.loop = function() {
     
@@ -85,10 +94,33 @@ module.exports.loop = function() {
                 delete Memory.creeps[name];
             }
         }
-        
-        
-        
     }
+    
+    
+    
+    
+    if (Game.spawns['1'].room.storage.store[RESOURCE_ENERGY] > 500000){
+        var zapJuice = Game.spawns['1'].room.find(FIND_STRUCTURES, {
+                filter: structure => structure.structureType == STRUCTURE_POWER_SPAWN
+                });
+        if (zapJuice[0].power > 0 && zapJuice[0].energy >= 50){
+            zapJuice[0].processPower();
+        }
+        
+        if (zapJuice[0].power <= 50 && Game.spawns['1'].room.storage.store[RESOURCE_POWER] > 0){
+            Game.spawns['1'].room.memory.processing = true;
+        }else{
+            Game.spawns['1'].room.memory.processing = false;
+        }
+    } else {
+        Game.spawns['1'].room.memory.processing = false;
+    }
+    
+    
+    
+    
+    
+    
     
     
     
@@ -112,53 +144,54 @@ module.exports.loop = function() {
 
 
 
-
-    try{
-        Spawn1.run('Spawn1');
-    }catch(e){
-        console.log(e.message);
-    }
-    
-    try{
-        Spawn2.run('Spawn2');
-    }catch(e){
-        console.log(e.message);
-    }
-    
-    try{
-        Spawn3.run('Spawn3');
-    }catch(e){
-        console.log(e.message);
-    }
-    
-    try{
-        Spawn4.run('Spawn4');
-    }catch(e){
-        console.log(e.message);
-    }
-    
-    try{
-        Spawn5.run('Spawn5a');
-    }catch(e){
-        console.log(e.message);
-    }
-    
-    try{
-        Spawn6.run('Spawn6');
-    }catch(e){
-        console.log(e.message);
-    }
-    
-    // try{
-    //     Spawn7.run('7');
-    // }catch(e){
-    //     console.log(e.message);
-    // }
-    
-    try{
-        Spawn8.run('8');
-    }catch(e){
-        console.log(e.message);
+    if (Memory.tick5 == 2){
+        try{
+            Spawn1.run('1');
+        }catch(e){
+            console.log(e.message);
+        }
+        
+        try{
+            Spawn2.run('2');
+        }catch(e){
+            console.log(e.message);
+        }
+        
+        try{
+            Spawn3.run('3');
+        }catch(e){
+            console.log(e.message);
+        }
+        
+        try{
+            Spawn4.run('4');
+        }catch(e){
+            console.log(e.message);
+        }
+        
+        try{
+            Spawn5.run('5');
+        }catch(e){
+            console.log(e.message);
+        }
+        
+        try{
+            Spawn6.run('6');
+        }catch(e){
+            console.log(e.message);
+        }
+        
+        try{
+            Spawn7.run('7');
+        }catch(e){
+            console.log(e.message);
+        }
+        
+        try{
+            Spawn8.run('8');
+        }catch(e){
+            console.log(e.message);
+        }
     }
     
 
@@ -166,18 +199,83 @@ module.exports.loop = function() {
         var creep = Game.creeps[name];
         if (creep.memory.role == 'mine') {
                 mine.run(creep);
+                
         } else if (creep.memory.role == 'killer') {
             try{
                 killer.run(creep);
             }catch(e){
                 console.log(e.message);
             }
-        } else if (creep.memory.role == 'breacher') {
+        // } else if (creep.memory.role == 'breacher') {
+        //     try{
+        //         breacher.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
+        // } else if (creep.memory.role == 'tank') {
+        //     try{
+        //         tank.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
+        // } else if (creep.memory.role == 'xbuild') {
+        //     try{
+        //         xbuild.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
+        
+        
+        
+        
+        // } else if (creep.memory.role == 'xmine') {
+        //     try{
+        //         xmine.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
+        // } else if (creep.memory.role == 'xhaul') {
+        //     try{
+        //         xhaul.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
+        // } else if (creep.memory.role == 'xguard') {
+        //     try{
+        //         xguard.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
+        // } else if (creep.memory.role == 'reserver') {
+        //     try{
+        //         reserver.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
+            
+            
+            
+        // } else if (creep.memory.role == 'colonist') {
+        //     try{
+        //         colonist.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
+        // } else if (creep.memory.role == 'claim') {
+        //     try{
+        //         claim.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
+            
+        } else if (creep.memory.role == 'mineralBot') {
             try{
-                breacher.run(creep);
+                mineralBot.run(creep);
             }catch(e){
                 console.log(e.message);
             }
+            
+            
         } else if (creep.memory.role == 'upgrade') {
             try{
                 upgrade.run(creep);
@@ -202,51 +300,21 @@ module.exports.loop = function() {
             }catch(e){
                 console.log(e.message);
             }
-        } else if (creep.memory.role == 'xmine') {
+        } else if (creep.memory.role == 'powerHarvester') {
             try{
-                xmine.run(creep);
+                powerHarvester.run(creep);
             }catch(e){
                 console.log(e.message);
             }
-        } else if (creep.memory.role == 'xhaul') {
+        } else if (creep.memory.role == 'powerGrabber') {
             try{
-                xhaul.run(creep);
+                powerGrabber.run(creep);
             }catch(e){
                 console.log(e.message);
             }
-        } else if (creep.memory.role == 'reserver') {
+        } else if (creep.memory.role == 'powerHealer') {
             try{
-                reserver.run(creep);
-            }catch(e){
-                console.log(e.message);
-            }
-        } else if (creep.memory.role == 'xbuild') {
-            try{
-                xbuild.run(creep);
-            }catch(e){
-                console.log(e.message);
-            }
-        } else if (creep.memory.role == 'claim') {
-            try{
-                claim.run(creep);
-            }catch(e){
-                console.log(e.message);
-            }
-        } else if (creep.memory.role == 'colonist') {
-            try{
-                colonist.run(creep);
-            }catch(e){
-                console.log(e.message);
-            }
-        } else if (creep.memory.role == 'tank') {
-            try{
-                tank.run(creep);
-            }catch(e){
-                console.log(e.message);
-            }
-        } else if (creep.memory.role == 'xguard') {
-            try{
-                xguard.run(creep);
+                powerHealer.run(creep);
             }catch(e){
                 console.log(e.message);
             }

@@ -31,12 +31,13 @@ var Spawn3 = {
         var breacherCount = 0;
         var tankCount = 0;
         var xguardCount = 0;
+        var mineralBotCount = 0;
 
 
         for (var name in Game.creeps) {
             var creep = Game.creeps[name];
             if (creep.memory.home == spawn) {
-                if (creep.memory.role == 'mine') {
+                if (creep.memory.role == 'mine' && creep.ticksToLive > 200) {
                     mineCount++;
                     if (creep.memory.source == 0) {
                         source0++;
@@ -71,6 +72,8 @@ var Spawn3 = {
                     tankCount++;
                 } else if (creep.memory.role == 'xguard') {
                     xguardCount++;
+                } else if (creep.memory.role == 'mineralBot') {
+                    mineralBotCount++;
                 }
             }
         }
@@ -113,9 +116,9 @@ var Spawn3 = {
             });
         } else if (buildCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,WORK,
-                MOVE,MOVE,
-                CARRY,CARRY
+                WORK,
+                MOVE,
+                CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
@@ -123,8 +126,8 @@ var Spawn3 = {
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
-                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
-                MOVE,MOVE,
+                WORK,WORK,WORK,WORK,WORK,
+                MOVE,
                 CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
@@ -132,14 +135,14 @@ var Spawn3 = {
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,WORK,
-                MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY
+                WORK,
+                MOVE,
+                CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
             });
-        } else if (xguardCount < 1) {
+        } else if (xguardCount < 0) {
             Game.spawns[spawn].createCreep([
                 TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,
                 MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
@@ -148,7 +151,7 @@ var Spawn3 = {
                 'role': 'xguard',
                 'home': spawn
             });
-        } else if (xmineCount < 1) {
+        } else if (xmineCount < 0) {
             Game.spawns[spawn].createCreep([
                 MOVE,MOVE,MOVE,
                 WORK,WORK,WORK,WORK,WORK,WORK
@@ -156,7 +159,7 @@ var Spawn3 = {
                 'role': 'xmine',
                 'home': spawn
             });
-        } else if (xhaulCount < 2) {
+        } else if (xhaulCount < 0) {
             Game.spawns[spawn].createCreep([
                 MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
                 MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
@@ -166,7 +169,7 @@ var Spawn3 = {
                 'role': 'xhaul',
                 'home': spawn
             });
-        } else if (reserverCount < 1) {
+        } else if (reserverCount < 0) {
             Game.spawns[spawn].createCreep([
                 MOVE,MOVE,
                 CLAIM,CLAIM
@@ -227,6 +230,15 @@ var Spawn3 = {
                 'midwaybreach': true,
                 'midwaybreach2': true,
                 'midwaybreach3': true
+            });
+        } else if (mineralBotCount < 1) {
+            Game.spawns[spawn].createCreep([
+                MOVE,MOVE,MOVE,MOVE,
+                WORK,WORK,WORK,WORK,WORK,
+                CARRY,CARRY,CARRY
+            ], 'minBot' + (Game.time), {
+                'role': 'mineralBot',
+                'home': spawn
             });
         }
     }

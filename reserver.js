@@ -4,7 +4,7 @@ var reserver = {
             creep.moveTo(Game.flags[creep.memory.home], {reusePath:50});
         } else {
             if (creep.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(creep.room.controller);
+                creep.moveTo(creep.room.controller, {maxRooms:1}, {reusePath:15});
             // }else{
             //     creep.signController(creep.room.controller, 'scoopin up the goods :D');
             }

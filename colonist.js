@@ -2,6 +2,8 @@ var colonist = {
     run: function(creep) {
         if (creep.room != Game.flags.colony.room) {
             creep.moveTo(Game.flags.colony, {reusePath:100});
+            
+            
             // if (!creep.memory.colonyMidpoint){
             //     creep.moveTo(Game.flags.colonyMidpoint);
             //     if (creep.pos == Game.flags.colonyMidpoint){
@@ -19,7 +21,7 @@ var colonist = {
             if (creep.memory.mining) {
                 var source = creep.pos.findClosestByPath(FIND_SOURCES);
                 if (creep.harvest(source) < 0) {
-                    creep.moveTo(source);
+                    creep.moveTo(source, {maxRooms:1}, {reusePath:15});
                 }
             } else {
                 var targets = creep.room.find(FIND_CONSTRUCTION_SITES, {
@@ -28,7 +30,7 @@ var colonist = {
                 if (targets.length > 0) {
                     var target = creep.pos.findClosestByRange(targets);
                     if (creep.build(target) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target);
+                        creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                     }
                 } else {
                     var targets = creep.room.find(FIND_STRUCTURES, {
@@ -41,11 +43,11 @@ var colonist = {
                     });
                     var target = creep.pos.findClosestByRange(targets);
                     if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target);
+                        creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                     } else {
                         target = creep.room.controller;
                         if (creep.upgradeController(target) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(target);
+                            creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                         }
                     }
                 }
