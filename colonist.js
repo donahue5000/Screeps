@@ -19,7 +19,11 @@ var colonist = {
                 creep.memory.mining = false;
             }
             if (creep.memory.mining) {
-                var source = creep.pos.findClosestByPath(FIND_SOURCES);
+                var source = creep.pos.findClosestByPath(FIND_SOURCES
+                
+                , {filter: (hasEnergy) => hasEnergy.energy > 0}
+                
+                );
                 if (creep.harvest(source) < 0) {
                     creep.moveTo(source, {maxRooms:1}, {reusePath:15});
                 }

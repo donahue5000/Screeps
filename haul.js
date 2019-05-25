@@ -36,7 +36,7 @@ var haul = {
                 });
             }
             if (sources.length > 0){
-                var thing = creep.pos.findClosestByPath(sources);
+                var thing = creep.pos.findClosestByRange(sources);
                 if (creep.withdraw(thing, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(thing, {maxRooms:1}, {reusePath:15});
                 }
@@ -94,6 +94,13 @@ var haul = {
             if (targets.length < 1) {
                 targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => structure.structureType == STRUCTURE_LAB &&
+                        structure.energy < structure.energyCapacity
+                });
+            }
+            
+            if (targets.length < 1) {
+                targets = creep.room.find(FIND_STRUCTURES, {
+                    filter: (structure) => structure.structureType == STRUCTURE_NUKER &&
                         structure.energy < structure.energyCapacity
                 });
             }

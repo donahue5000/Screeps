@@ -34,7 +34,9 @@ var mine = {
             
             
             var thisLink = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: (thing) => thing.structureType == STRUCTURE_LINK});
+                filter: (thing) => thing.structureType == STRUCTURE_LINK && 
+                    thing.energy < thing.energyCapacity
+            });
             if (thisLink){
                 if (creep.pos.getRangeTo(thisLink) == 1){
                     creep.transfer(thisLink, RESOURCE_ENERGY);

@@ -9,11 +9,6 @@ var towerController = {
             var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             if (closestHostile) {
                 tower.attack(closestHostile);
-            // }else{
-            //         var test = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-            //             filter: (structure) => structure.structureType == STRUCTURE_WALL
-            //         });
-            //         tower.repair(test);
             }
         }
     }
