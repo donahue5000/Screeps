@@ -14,8 +14,10 @@ var Spawn9 = {
         var haulCount = 0;
         var killerCount = 0;
         var killerHealerCount = 0;
+        var claimCount = 0;
         var colonistCount = 0;
         var mineralBotCount = 0;
+        var mineralManagerCount = 0;
 
 
         for (var name in Game.creeps) {
@@ -40,16 +42,17 @@ var Spawn9 = {
                     killerCount++;
                 } else if (creep.memory.role == 'killerHealer') {
                     killerHealerCount++;
-                } else if (creep.memory.role == 'colonist') {
+                } else if (creep.memory.role == 'claim') {
+                    claimCount++;
+                } else if (creep.memory.role == 'colonist' && creep.ticksToLive > 200) {
                     colonistCount++;
                 } else if (creep.memory.role == 'mineralBot') {
                     mineralBotCount++;
+                } else if (creep.memory.role == 'mineralManager') {
+                    mineralManagerCount++;
                 }
             }
         }
-
-        Game.spawns[spawn].memory.source0 = source0;
-        Game.spawns[spawn].memory.source1 = source1;
 
         var nextSource = 0;
         if (source0 > 0) {
@@ -111,11 +114,21 @@ var Spawn9 = {
                 'home': spawn,
                 'intercept': true
             });
-        } else if (buildCount < 1) {
+        } else if (claimCount < 0) {
             Game.spawns[spawn].createCreep([
-                WORK,WORK,
-                MOVE,MOVE,
-                CARRY,CARRY
+                MOVE,MOVE,MOVE,MOVE,MOVE,
+                CLAIM
+            ], 'claim' + (Game.time), {
+                'role': 'claim',
+                'home': spawn
+            });
+        } else if (buildCount < 0) {
+            Game.spawns[spawn].createCreep([
+                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
+                WORK,WORK,WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
@@ -125,25 +138,25 @@ var Spawn9 = {
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
                 WORK,WORK,WORK,WORK,WORK,
                 MOVE,
-                CARRY,CARRY,CARRY,CARRY
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,WORK,WORK,WORK,WORK,WORK,
-                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
+                WORK,WORK,WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
             });
         } else if (colonistCount < 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,
-                WORK,
-                CARRY
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                WORK,WORK,WORK,WORK,WORK,
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'colonist' + (Game.time), {
                 'role': 'colonist',
                 'home': spawn
@@ -155,6 +168,14 @@ var Spawn9 = {
                 CARRY,CARRY,CARRY
             ], 'minBot' + (Game.time), {
                 'role': 'mineralBot',
+                'home': spawn
+            });
+        } else if (mineralManagerCount < 1) {
+            Game.spawns[spawn].createCreep([
+                MOVE,
+                CARRY,CARRY
+            ], 'minManager' + (Game.time), {
+                'role': 'mineralManager',
                 'home': spawn
             });
         }

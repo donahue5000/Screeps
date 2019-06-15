@@ -16,6 +16,7 @@ var Spawn8 = {
         var killerHealerCount = 0;
         var colonistCount = 0;
         var mineralBotCount = 0;
+        var mineralManagerCount = 0;
 
 
         for (var name in Game.creeps) {
@@ -44,12 +45,11 @@ var Spawn8 = {
                     colonistCount++;
                 } else if (creep.memory.role == 'mineralBot') {
                     mineralBotCount++;
+                } else if (creep.memory.role == 'mineralManager') {
+                    mineralManagerCount++;
                 }
             }
         }
-
-        Game.spawns[spawn].memory.source0 = source0;
-        Game.spawns[spawn].memory.source1 = source1;
 
         var nextSource = 0;
         if (source0 > 0) {
@@ -86,8 +86,7 @@ var Spawn8 = {
             });
         } else if (haulCount < 1) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
+                MOVE,MOVE,MOVE,MOVE,MOVE,
                 CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'h' + (Game.time), {
                 'role': 'haul',
@@ -103,15 +102,6 @@ var Spawn8 = {
                 'role': 'killerHealer',
                 'home': spawn
             });
-            // Game.spawns['8a'].createCreep([
-            //     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
-            //     MOVE,MOVE,MOVE,MOVE,MOVE,
-            //     HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,
-            //     HEAL,HEAL,HEAL,HEAL,HEAL
-            // ], 'healer' + (Game.time), {
-            //     'role': 'killerHealer',
-            //     'home': spawn
-            // });
         } else if (killerCount < 0) {
             Game.spawns[spawn].createCreep([
                 ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,
@@ -125,23 +115,11 @@ var Spawn8 = {
                 'home': spawn,
                 'draining': false
             });
-            // Game.spawns['8a'].createCreep([
-            //     ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,
-            //     ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,
-            //     ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,
-            //     MOVE,MOVE,MOVE,MOVE,MOVE,
-            //     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
-            //     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
-            // ], 'killer' + (Game.time), {
-            //     'role': 'killer',
-            //     'home': spawn,
-            //     'draining': false
-            // });
-        } else if (buildCount < 1) {
+        } else if (buildCount < 0) {
             Game.spawns[spawn].createCreep([
-                WORK,
-                MOVE,
-                CARRY
+                WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
@@ -150,17 +128,17 @@ var Spawn8 = {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
                 WORK,WORK,WORK,WORK,WORK,
-                MOVE,
-                CARRY,CARRY,CARRY,CARRY
+                MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,
-                MOVE,
-                CARRY
+                WORK,WORK,WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
@@ -172,6 +150,14 @@ var Spawn8 = {
                 CARRY,CARRY,CARRY
             ], 'minBot' + (Game.time), {
                 'role': 'mineralBot',
+                'home': spawn
+            });
+        } else if (mineralManagerCount < 0) {
+            Game.spawns[spawn].createCreep([
+                MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY
+            ], 'minManager' + (Game.time), {
+                'role': 'mineralManager',
                 'home': spawn
             });
         }

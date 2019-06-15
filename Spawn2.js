@@ -1,23 +1,6 @@
 var Spawn2 = {
     run: function(spawn) {
 
-    if (Game.spawns[spawn].room.storage.store[RESOURCE_ENERGY] > 500000){
-        var zapJuice = Game.spawns[spawn].room.find(FIND_STRUCTURES, {
-                filter: structure => structure.structureType == STRUCTURE_POWER_SPAWN
-                });
-        if (zapJuice[0].power > 0 && zapJuice[0].energy >= 50){
-            zapJuice[0].processPower();
-        }
-        
-        if (zapJuice[0].power <= 50 && Game.spawns['1'].room.storage.store[RESOURCE_POWER] > 0){
-            Game.spawns[spawn].room.memory.processing = true;
-        }else{
-            Game.spawns[spawn].room.memory.processing = false;
-        }
-    } else {
-        Game.spawns[spawn].room.memory.processing = false;
-    }
-
 
 
         var source0 = 0;
@@ -30,6 +13,8 @@ var Spawn2 = {
         var haulCount = 0;
         var mineralBotCount = 0;
         var mineralManagerCount = 0;
+        var killerCount = 0;
+        var killerHealerCount = 0;
 
 
         for (var name in Game.creeps) {
@@ -54,12 +39,13 @@ var Spawn2 = {
                     mineralBotCount++;
                 } else if (creep.memory.role == 'mineralManager') {
                     mineralManagerCount++;
+                } else if (creep.memory.role == 'killer' && creep.ticksToLive > 700) {
+                    killerCount++;
+                } else if (creep.memory.role == 'killerHealer' && creep.ticksToLive > 700) {
+                    killerHealerCount++;
                 }
             }
         }
-
-        Game.spawns[spawn].memory.source0 = source0;
-        Game.spawns[spawn].memory.source1 = source1;
 
         var nextSource = 0;
         if (source0 > 0) {
@@ -102,11 +88,11 @@ var Spawn2 = {
                 'role': 'haul',
                 'home': spawn
             });
-        } else if (buildCount < 1) {
+        } else if (buildCount < 0) {
             Game.spawns[spawn].createCreep([
-                WORK,
-                MOVE,
-                CARRY
+                WORK,WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
@@ -116,25 +102,25 @@ var Spawn2 = {
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
                 WORK,WORK,WORK,WORK,WORK,
                 MOVE,
-                CARRY,CARRY,CARRY,CARRY
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,
-                MOVE,
-                CARRY
+                WORK,WORK,WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
             });
         } else if (mineralBotCount < 1 && Game.spawns[spawn].room.find(FIND_MINERALS)[0].mineralAmount > 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,
-                WORK,WORK,WORK,WORK,WORK,
-                CARRY,CARRY,CARRY
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
+                CARRY,CARRY,CARRY,CARRY
             ], 'minBot' + (Game.time), {
                 'role': 'mineralBot',
                 'home': spawn
@@ -146,6 +132,30 @@ var Spawn2 = {
             ], 'minManager' + (Game.time), {
                 'role': 'mineralManager',
                 'home': spawn
+            });
+        } else if (killerHealerCount < 0) {
+            Game.spawns['Spawn2'].createCreep([
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,HEAL,HEAL,HEAL,HEAL,HEAL,
+                HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,
+                HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL
+            ], 'healer' + (Game.time), {
+                'role': 'killerHealer',
+                'home': spawn
+            });
+        } else if (killerCount < 0) {
+            Game.spawns[spawn + 'a'].createCreep([
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,
+                ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,
+                ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK
+            ], 'killer' + (Game.time), {
+                'role': 'killer',
+                'home': spawn,
+                'draining': false,
+                'intercept': true
             });
         }
     }

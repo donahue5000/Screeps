@@ -14,6 +14,8 @@ var Spawn6 = {
         var haulCount = 0;
         var mineralBotCount = 0;
         var mineralManagerCount = 0;
+        var killerCount = 0;
+        var killerHealerCount = 0;
 
 
         for (var name in Game.creeps) {
@@ -34,16 +36,17 @@ var Spawn6 = {
                     repairCount++;
                 } else if (creep.memory.role == 'haul') {
                     haulCount++;
-                }else if (creep.memory.role == 'mineralBot') {
+                } else if (creep.memory.role == 'mineralBot') {
                     mineralBotCount++;
-                }else if (creep.memory.role == 'mineralManager') {
+                } else if (creep.memory.role == 'mineralManager') {
                     mineralManagerCount++;
+                } else if (creep.memory.role == 'killer' && creep.ticksToLive > 700) {
+                    killerCount++;
+                } else if (creep.memory.role == 'killerHealer' && creep.ticksToLive > 700) {
+                    killerHealerCount++;
                 }
             }
         }
-
-        Game.spawns[spawn].memory.source0 = source0;
-        Game.spawns[spawn].memory.source1 = source1;
 
         var nextSource = 0;
         if (source0 > 0) {
@@ -86,11 +89,11 @@ var Spawn6 = {
                 'role': 'haul',
                 'home': spawn
             });
-        } else if (buildCount < 1) {
+        } else if (buildCount < 0) {
             Game.spawns[spawn].createCreep([
-                WORK,
-                MOVE,
-                CARRY
+                WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
@@ -99,8 +102,8 @@ var Spawn6 = {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
                 WORK,WORK,WORK,WORK,WORK,
-                MOVE,
-                CARRY,CARRY,CARRY,CARRY
+                MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
                 'role': 'upgrade',
                 'home': spawn
@@ -108,16 +111,16 @@ var Spawn6 = {
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,
-                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY,CARRY
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
             });
         } else if (mineralBotCount < 1 && Game.spawns[spawn].room.find(FIND_MINERALS)[0].mineralAmount > 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,
-                WORK,WORK,WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,
+                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
                 CARRY
             ], 'minBot' + (Game.time), {
                 'role': 'mineralBot',
@@ -130,6 +133,30 @@ var Spawn6 = {
             ], 'minManager' + (Game.time), {
                 'role': 'mineralManager',
                 'home': spawn
+            });
+        } else if (killerHealerCount < 0) {
+            Game.spawns[spawn].createCreep([
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,HEAL,HEAL,HEAL,HEAL,HEAL,
+                HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,
+                HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL
+            ], 'healer' + (Game.time), {
+                'role': 'killerHealer',
+                'home': spawn
+            });
+        } else if (killerCount < 0) {
+            Game.spawns[spawn + 'b'].createCreep([
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,
+                ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,
+                ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK,ATTACK
+            ], 'killer' + (Game.time), {
+                'role': 'killer',
+                'home': spawn,
+                'draining': false,
+                'intercept': true
             });
         }
     }

@@ -1,7 +1,7 @@
 var colonist = {
     run: function(creep) {
         if (creep.room != Game.flags.colony.room) {
-            creep.moveTo(Game.flags.colony, {reusePath:100});
+            creep.moveTo(Game.flags.colony, {reusePath:15});
             
             
             // if (!creep.memory.colonyMidpoint){
