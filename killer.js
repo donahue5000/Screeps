@@ -1,4 +1,4 @@
-var killer = {
+let killer = {
     run: function(creep) {
             
         if (creep.room != Game.flags.kill.room) {
@@ -15,7 +15,7 @@ var killer = {
             else if (creep.attack(creep.room.lookForAt(LOOK_STRUCTURES, Game.flags.kill)[0]) < 0){
                 
                 
-                var target;
+                let target;
                 if (creep.memory.intercept == true){
                     target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
                         
@@ -25,7 +25,7 @@ var killer = {
                         });
                     }
                 }else{
-                    var target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
+                    let target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
                             filter: (struct) => struct.structureType == STRUCTURE_SPAWN
                         });
                         

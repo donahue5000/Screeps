@@ -1,4 +1,4 @@
-var killerHealer = {
+let killerHealer = {
     run: function(creep) {
             
         if (creep.hits < creep.hitsMax){
@@ -9,7 +9,7 @@ var killerHealer = {
                 creep.moveTo(Game.flags.killHeal, {reusePath:100});
             } else {
                 creep.moveTo(Game.flags.killHeal);
-                var target = creep.pos.findClosestByPath(FIND_MY_CREEPS, {
+                let target = creep.pos.findClosestByPath(FIND_MY_CREEPS, {
                     filter: x => x.hits < x.hitsMax
                 });
                 

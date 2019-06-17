@@ -1,4 +1,4 @@
-var claim = {
+let claim = {
     run: function(creep) {
         if (creep.room != Game.flags.colony.room) {
             creep.moveTo(Game.flags.colony, {reusePath:15});
@@ -8,7 +8,7 @@ var claim = {
             } 
             else {
                 creep.signController(creep.room.controller, 
-                    '');
+                    'Purge Depot');
             }
         }
     }

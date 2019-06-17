@@ -1,4 +1,4 @@
-var mineralBot = {
+let mineralBot = {
     run: function(creep) {
 
 
@@ -9,12 +9,12 @@ var mineralBot = {
             creep.memory.mining = false;
         }
         if (creep.memory.mining) {
-            var source = creep.room.find(FIND_MINERALS)[0];
+            let source = creep.room.find(FIND_MINERALS)[0];
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source, {maxRooms:1}, {reusePath:15});
             }
         } else {
-            var target = creep.room.terminal;
+            let target = creep.room.terminal;
             if (creep.transfer(target, _.findKey(creep.carry)) < 0) {
                 creep.moveTo(target, {maxRooms:1}, {reusePath:15});
             }

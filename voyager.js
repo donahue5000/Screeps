@@ -1,4 +1,4 @@
-var voyager = {
+let voyager = {
     run: function(creep) {
             
         if (creep.memory.arrived == undefined){
@@ -17,7 +17,7 @@ var voyager = {
             else if (creep.attack(creep.room.lookForAt(LOOK_STRUCTURES, Game.flags.xkill)[0]) < 0){
                 
                 
-                var target;
+                let target;
                 if (creep.memory.intercept == true){
                     target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
                         
@@ -27,7 +27,7 @@ var voyager = {
                         });
                     }
                 }else{
-                    var target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
+                    let target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
                             filter: (struct) => struct.structureType == STRUCTURE_SPAWN
                         });
                         

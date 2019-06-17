@@ -1,5 +1,5 @@
-var repair = {
-    run: function(creep) {
+let repair = {
+    fixStuff: function(creep) {
 
         if (creep.carry.energy == 0) {
             creep.memory.building = false;
@@ -10,7 +10,7 @@ var repair = {
         }
 
         if (creep.memory.building && !creep.memory.localBuild) {
-            var targets = creep.room.find(FIND_STRUCTURES, {
+            let targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (x) => x.hits < x.hitsMax &&
                     (x.hitsMax > 25000 || x.hits < 3000)
             });
@@ -35,12 +35,12 @@ var repair = {
                 creep.memory.localBuild = false;
             }
         } else {
-            var sources = creep.room.find(FIND_DROPPED_RESOURCES, {
+            let sources = creep.room.find(FIND_DROPPED_RESOURCES, {
                 filter: (stuff) => stuff.amount >= creep.carryCapacity &&
                             stuff.resourceType == RESOURCE_ENERGY
             });
             if (sources.length > 0) {
-                var target = creep.pos.findClosestByRange(sources);
+                let target = creep.pos.findClosestByRange(sources);
                 if (creep.pickup(target) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                 }

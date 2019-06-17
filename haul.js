@@ -1,4 +1,4 @@
-var haul = {
+let haul = {
 
     run: function(creep) {
         if (creep.memory.hauling == true && creep.carry.energy < 1) {
@@ -6,7 +6,7 @@ var haul = {
         }
 
         if (creep.memory.hauling == false && creep.carry.energy < creep.carryCapacity) {
-            var sources = creep.room.find(FIND_STRUCTURES, {
+            let sources = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) =>
                         (structure.structureType == STRUCTURE_LINK) &&
                         (structure.energy > 0) &&
@@ -36,7 +36,7 @@ var haul = {
                 });
             }
             if (sources.length > 0){
-                var thing = creep.pos.findClosestByRange(sources);
+                let thing = creep.pos.findClosestByRange(sources);
                 if (creep.withdraw(thing, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(thing, {maxRooms:1}, {reusePath:15});
                 }
@@ -48,7 +48,7 @@ var haul = {
                 }
                 );
                 if (sources.length > 0) {
-                    var target = creep.pos.findClosestByRange(sources);
+                    let target = creep.pos.findClosestByRange(sources);
                     if (creep.pickup(target) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                     }
@@ -60,7 +60,7 @@ var haul = {
             
         } else {
             creep.memory.hauling = true;
-            var targets = creep.room.find(FIND_STRUCTURES, {
+            let targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_EXTENSION ||
                         structure.structureType == STRUCTURE_SPAWN) &&
@@ -112,7 +112,7 @@ var haul = {
                 });
             }
             if (targets.length > 0) {
-                var target = creep.pos.findClosestByRange(targets);
+                let target = creep.pos.findClosestByRange(targets);
                 if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                 }

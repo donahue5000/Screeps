@@ -1,4 +1,4 @@
-var colonist = {
+let colonist = {
     run: function(creep) {
         if (creep.room != Game.flags.colony.room) {
             creep.moveTo(Game.flags.colony, {reusePath:15});
@@ -19,7 +19,7 @@ var colonist = {
                 creep.memory.mining = false;
             }
             if (creep.memory.mining) {
-                var source = creep.pos.findClosestByPath(FIND_SOURCES
+                let source = creep.pos.findClosestByPath(FIND_SOURCES
                 
                 , {filter: (hasEnergy) => hasEnergy.energy > 0}
                 
@@ -28,16 +28,16 @@ var colonist = {
                     creep.moveTo(source, {maxRooms:1}, {reusePath:15});
                 }
             } else {
-                var targets = creep.room.find(FIND_CONSTRUCTION_SITES, {
+                let targets = creep.room.find(FIND_CONSTRUCTION_SITES, {
                     filter: (x) => x.my
                 });
                 if (targets.length > 0) {
-                    var target = creep.pos.findClosestByRange(targets);
+                    let target = creep.pos.findClosestByRange(targets);
                     if (creep.build(target) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                     }
                 } else {
-                    var targets = creep.room.find(FIND_STRUCTURES, {
+                    let targets = creep.room.find(FIND_STRUCTURES, {
                         filter: (structure) => {
                             return (structure.structureType == STRUCTURE_EXTENSION ||
                                     structure.structureType == STRUCTURE_SPAWN ||
@@ -45,7 +45,7 @@ var colonist = {
                                 structure.energy < structure.energyCapacity;
                         }
                     });
-                    var target = creep.pos.findClosestByRange(targets);
+                    let target = creep.pos.findClosestByRange(targets);
                     if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                     } else {

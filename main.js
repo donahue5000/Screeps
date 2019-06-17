@@ -1,46 +1,44 @@
 
 
 
-var mineralBot = require('mineralBot');
-var mineralManager = require('mineralManager');
+let mineralBot = require('mineralBot');
+let mineralManager = require('mineralManager');
 
-var build = require('build');
-var upgrade = require('upgrade');
-var mine = require('mine');
-var repair = require('repair');
-var haul = require('haul');
+let build = require('build');
+let upgrade = require('upgrade');
+let mine = require('mine');
+let repair = require('repair');
+let haul = require('haul');
 
-var towerController = require('towerController');
-var linkController = require('linkController');
-var labController = require('labController');
-var panicButton = require('panicButton');
+let linkController = require('linkController');
+let panicButton = require('panicButton');
 
-var Spawn1 = require('Spawn1');
-var Spawn2 = require('Spawn2');
-var Spawn3 = require('Spawn3');
-var Spawn4 = require('Spawn4');
-var Spawn5 = require('Spawn5');
-var Spawn6 = require('Spawn6');
-var Spawn7 = require('Spawn7');
-var Spawn8 = require('Spawn8');
-var Spawn9 = require('Spawn9');
-var Spawn10 = require('Spawn10');
+let Spawn1 = require('Spawn1');
+let Spawn2 = require('Spawn2');
+let Spawn3 = require('Spawn3');
+let Spawn4 = require('Spawn4');
+let Spawn5 = require('Spawn5');
+let Spawn6 = require('Spawn6');
+let Spawn7 = require('Spawn7');
+let Spawn8 = require('Spawn8');
+let Spawn9 = require('Spawn9');
+let Spawn10 = require('Spawn10');
+let Spawn11 = require('Spawn11');
 
-//var colonist = require('colonist');
-// var claim = require('claim');
+// let colonist = require('colonist');
+// let claim = require('claim');
 
-var killer = require('killer');
-var killerHealer = require('killerHealer');
-var voyager = require('voyager');
+// let killer = require('killer');
+// let killerHealer = require('killerHealer');
+// let voyager = require('voyager');
 
 module.exports.loop = function() {
     
     
-
     
     
     // if (Game.spawns['1'].room.storage.store[RESOURCE_ENERGY] > 10000){
-    //     var zapJuice = Game.spawns['1'].room.find(FIND_STRUCTURES, {
+    //     let zapJuice = Game.spawns['1'].room.find(FIND_STRUCTURES, {
     //             filter: structure => structure.structureType == STRUCTURE_POWER_SPAWN
     //             });
     //     if (zapJuice[0].power > 0 && zapJuice[0].energy >= 50){
@@ -58,38 +56,40 @@ module.exports.loop = function() {
     
     
     
-    for (var name in Game.creeps) {
-        var creep = Game.creeps[name];
+    for (let name in Game.creeps) {
+        let creep = Game.creeps[name];
         
-        if (creep.memory.role == undefined){
-            creep.memory.role = 'voyager';
-            creep.memory.arrived = true;
-            creep.memory.intercept = true;
-        }
+        // if (creep.memory.role == undefined){
+        //     creep.memory.role = 'voyager';
+        //     creep.memory.arrived = true;
+        //     creep.memory.intercept = true;
+        // }
         
         if (creep.memory.role == 'mine') {
                 mine.run(creep);
-        } else if (creep.memory.role == 'killer') {
-            try{
-                killer.run(creep);
-            }catch(e){
-                console.log(e.message);
-            }
+                
+                
+                
+        // } else if (creep.memory.role == 'killer') {
+        //     try{
+        //         killer.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
+        // } else if (creep.memory.role == 'killerHealer') {
+        //     try{
+        //         killerHealer.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
             
-        } else if (creep.memory.role == 'killerHealer') {
-            try{
-                killerHealer.run(creep);
-            }catch(e){
-                console.log(e.message);
-            }
             
-            
-        //} else if (creep.memory.role == 'colonist') {
-        //    try{
-        //        colonist.run(creep);
-        //    }catch(e){
-        //        console.log(e.message);
-        //    }
+        // } else if (creep.memory.role == 'colonist') {
+        //     try{
+        //         colonist.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
         // } else if (creep.memory.role == 'claim') {
         //     try{
         //         claim.run(creep);
@@ -132,7 +132,7 @@ module.exports.loop = function() {
             
         } else if (creep.memory.role == 'repair') {
             try{
-                repair.run(creep);
+                repair.fixStuff(creep);
             }catch(e){
                 console.log(e.message);
             }
@@ -142,16 +142,16 @@ module.exports.loop = function() {
             }catch(e){
                 console.log(e.message);
             }
-        } else if (creep.memory.role == 'voyager') {
-            try{
-                voyager.run(creep);
-            }catch(e){
-                console.log(e.message);
-            }
+        // } else if (creep.memory.role == 'voyager') {
+        //     try{
+        //         voyager.run(creep);
+        //     }catch(e){
+        //         console.log(e.message);
+        //     }
         }
     }
     
-    var timer = 5;
+    let timer = 5;
     if (Memory.activeDefenseMode > 0){
         timer = 1;
     }
@@ -159,7 +159,7 @@ module.exports.loop = function() {
     
     if (Game.time % timer == 0){
         Memory.activeDefenseMode = 0;
-        var roomList = [
+        let roomList = [
             'E29S49',   //1  L  zk ul --- g - gh
             'E31S41',   //2  O  o h --- oh
             'E41S39',   //3  H
@@ -169,10 +169,12 @@ module.exports.loop = function() {
             'W19S17',   //7  Z
             'W19S39',   //8  H
             'W21S25',   //9  L
-            'W19S27'    //10 X
+            'W19S27',   //10 X
+            'E49S29',   //11 K
         ];
-        for (var x = 0; x < roomList.length; x++){
-            var thisRoom = Game.rooms[roomList[x]];
+        for (let x = 0; x < roomList.length; x++){
+            let thisRoom = Game.rooms[roomList[x]];
+            
             try{
                 panicButton.run(thisRoom);
             }catch(e){
@@ -180,19 +182,7 @@ module.exports.loop = function() {
             }
             
             try{
-                towerController.run(thisRoom);
-            }catch(e){
-                console.log(e.message);
-            }
-            
-            try{
                 linkController.run(thisRoom);
-            }catch(e){
-                console.log(e);
-            }
-            
-            try{
-                labController.run(thisRoom);
             }catch(e){
                 console.log(e);
             }
@@ -203,9 +193,9 @@ module.exports.loop = function() {
     
 
 
-    if (Game.time % 10 == 0){
+    if (Game.time % 20 == 0){
         
-        for (var name in Memory.creeps) {
+        for (let name in Memory.creeps) {
             if (!Game.creeps[name]) {
                 delete Memory.creeps[name];
             }
@@ -213,61 +203,88 @@ module.exports.loop = function() {
         
         
         try{
-            Spawn1.run('1');
+            if (Game.spawns['1'].spawning == null){
+                Spawn1.run('1');
+            }
         }catch(e){
             console.log(e.message);
         }
         
         try{
-            Spawn2.run('2');
+            if (Game.spawns['2'].spawning == null){
+                Spawn2.run('2');
+            }
         }catch(e){
             console.log(e.message);
         }
         
         try{
-            Spawn3.run('3');
+            if (Game.spawns['3'].spawning == null){
+                Spawn3.run('3');
+            }
         }catch(e){
             console.log(e.message);
         }
         
         try{
-            Spawn4.run('4');
+            if (Game.spawns['4'].spawning == null){
+                Spawn4.run('4');
+            }
+        }catch(e){
+            console.log(e.message);
+        }
+        
+        try{if (Game.spawns['5'].spawning == null){
+                Spawn5.run('5');
+            }
         }catch(e){
             console.log(e.message);
         }
         
         try{
-            Spawn5.run('5');
+            if (Game.spawns['6'].spawning == null){
+                Spawn6.run('6');
+            }
         }catch(e){
             console.log(e.message);
         }
         
         try{
-            Spawn6.run('6');
+            if (Game.spawns['7'].spawning == null){
+                Spawn7.run('7');
+            }
         }catch(e){
             console.log(e.message);
         }
         
         try{
-            Spawn7.run('7');
+            if (Game.spawns['8'].spawning == null){
+                Spawn8.run('8');
+            }
         }catch(e){
             console.log(e.message);
         }
         
         try{
-            Spawn8.run('8');
+            if (Game.spawns['9'].spawning == null){
+                Spawn9.run('9');
+            }
         }catch(e){
             console.log(e.message);
         }
         
         try{
-            Spawn9.run('9');
+            if (Game.spawns['10'].spawning == null){
+                Spawn10.run('10');
+            }
         }catch(e){
             console.log(e.message);
         }
         
         try{
-            Spawn10.run('10');
+            if (Game.spawns['Spawn11'].spawning == null){
+                Spawn11.run('Spawn11');
+            }
         }catch(e){
             console.log(e.message);
         }
@@ -290,7 +307,8 @@ module.exports.loop = function() {
     
 }
 
-
+//remove decisions from creeps
+    //transmit simple actions to creeps
 //better assault group
     //kiting ranger
 //upgraders simultaneous actions

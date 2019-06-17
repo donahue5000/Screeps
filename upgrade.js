@@ -1,4 +1,4 @@
-var upgrade = {
+let upgrade = {
     run: function(creep) {
 
 
@@ -35,15 +35,8 @@ var upgrade = {
                     creep.moveTo(creep.room.controller, {maxRooms:1}, {reusePath:15});
                 }
             } else if (creep.fatigue == 0) {
-                var sources = creep.room.find(FIND_STRUCTURES, {
-                    filter: (structure) =>
-                        structure.structureType == STRUCTURE_STORAGE &&
-                        structure.store[RESOURCE_ENERGY] >= creep.carryCapacity
-                });
-                if (sources.length > 0) {
-                    if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(sources[0]);
-                    }
+                if (creep.withdraw(creep.room.storage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+                    creep.moveTo(creep.room.storage, {maxRooms:1}, {reusePath:15});
                 } else {
                     sources = creep.room.find(FIND_STRUCTURES, {
                         filter: (structure) =>
@@ -51,7 +44,7 @@ var upgrade = {
                             structure.store[RESOURCE_ENERGY] >= creep.carryCapacity
                     });
                     if (sources.length > 0) {
-                        var target = creep.pos.findClosestByRange(sources);
+                        let target = creep.pos.findClosestByRange(sources);
                         if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                             creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                         }
@@ -63,7 +56,7 @@ var upgrade = {
                             }
                         );
                         if (sources.length > 0) {
-                            var target = creep.pos.findClosestByRange(sources);
+                            let target = creep.pos.findClosestByRange(sources);
                             if (creep.pickup(target) == ERR_NOT_IN_RANGE) {
                                 creep.moveTo(target, {maxRooms:1}, {reusePath:15});
                             }
