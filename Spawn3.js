@@ -78,7 +78,8 @@ let Spawn3 = {
             });
         } else if (haulCount < 1) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                 CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'h' + (Game.time), {
                 'role': 'haul',
@@ -104,6 +105,7 @@ let Spawn3 = {
             });
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
+                // WORK,MOVE,CARRY
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
                 WORK,WORK,WORK,WORK,WORK,
                 MOVE,
@@ -114,8 +116,8 @@ let Spawn3 = {
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,WORK,WORK,WORK,WORK,
-                MOVE,MOVE,MOVE,MOVE,MOVE,
+                WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,MOVE,
                 CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',

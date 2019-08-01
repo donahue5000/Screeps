@@ -24,7 +24,7 @@ let Spawn5 = {
         for (let name in Game.creeps) {
             let creep = Game.creeps[name];
             if (creep.memory.home == spawn) {
-                if (creep.memory.role == 'mine' && creep.ticksToLive > 100) {
+                if (creep.memory.role == 'mine' && creep.ticksToLive > 150) {
                     mineCount++;
                     if (creep.memory.source == 0) {
                         source0++;
@@ -58,7 +58,7 @@ let Spawn5 = {
 
 
 
-        if (haulCount < 1 && Game.spawns[spawn].room.energyAvailable < 750) {
+        if (haulCount < 1 && Game.spawns[spawn].room.energyAvailable < 450) {
             Game.spawns[spawn].createCreep([
                 MOVE,MOVE,
                 CARRY,CARRY,CARRY,CARRY
@@ -86,17 +86,17 @@ let Spawn5 = {
             });
         } else if (haulCount < 1) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
+                MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'h' + (Game.time), {
                 'role': 'haul',
                 'home': spawn
             });
         } else if (buildCount < 0) {
             Game.spawns[spawn].createCreep([
-                WORK,
-                MOVE,
-                CARRY
+                WORK,WORK,
+                MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
@@ -113,16 +113,16 @@ let Spawn5 = {
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
-                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
+                WORK,WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn
             });
         } else if (mineralBotCount < 0 && Game.spawns[spawn].room.find(FIND_MINERALS)[0].mineralAmount > 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
                 WORK,WORK,WORK,WORK,WORK,
                 CARRY,CARRY,CARRY
             ], 'minBot' + (Game.time), {

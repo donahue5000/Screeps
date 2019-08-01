@@ -43,13 +43,11 @@ let build = {
                 sources = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) =>
                         (structure.structureType == STRUCTURE_CONTAINER ||
-                        structure.structureType == STRUCTURE_TERMINAL) &&
+                        structure.structureType == STRUCTURE_STORAGE) &&
                         structure.store[RESOURCE_ENERGY] >= creep.carryCapacity
                 });
                 if (sources.length > 0) {
                     target = creep.pos.findClosestByRange(sources);
-                } else {
-                    target = creep.room.storage;
                 }
                 if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target, {maxRooms:1}, {reusePath:15});

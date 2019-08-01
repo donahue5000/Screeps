@@ -117,9 +117,10 @@ let Spawn8 = {
             });
         } else if (buildCount < 0) {
             Game.spawns[spawn].createCreep([
-                WORK,WORK,WORK,
-                MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY
+                WORK,WORK,WORK,WORK,WORK,WORK,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
+                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn

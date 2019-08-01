@@ -124,9 +124,8 @@ let Spawn9 = {
             });
         } else if (buildCount < 0) {
             Game.spawns[spawn].createCreep([
-                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
                 WORK,WORK,WORK,WORK,WORK,
-                MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
                 CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                 CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'b' + (Game.time), {
@@ -136,7 +135,7 @@ let Spawn9 = {
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
-                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
+                WORK,WORK,WORK,WORK,WORK,
                 MOVE,MOVE,MOVE,
                 CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'u' + (Game.time), {
@@ -145,9 +144,9 @@ let Spawn9 = {
             });
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
-                WORK,WORK,WORK,WORK,WORK,
+                WORK,WORK,WORK,
                 MOVE,MOVE,MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY,CARRY,CARRY
+                CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
                 'home': spawn

@@ -18,6 +18,12 @@ let Spawn10 = {
         let colonistCount = 0;
         let mineralBotCount = 0;
         let mineralManagerCount = 0;
+        
+        
+        
+
+        
+        
 
 
         for (let name in Game.creeps) {
@@ -125,8 +131,8 @@ let Spawn10 = {
         } else if (buildCount < 0) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,
-                MOVE,MOVE,MOVE,
-                CARRY,CARRY,CARRY
+                MOVE,MOVE,MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY,CARRY
             ], 'b' + (Game.time), {
                 'role': 'build',
                 'home': spawn
@@ -134,7 +140,7 @@ let Spawn10 = {
         } else if (repairCount < 1) {
             Game.spawns[spawn].createCreep([
                 WORK,WORK,WORK,
-                MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
                 CARRY,CARRY,CARRY
             ], 'r' + (Game.time), {
                 'role': 'repair',
@@ -142,6 +148,7 @@ let Spawn10 = {
             });
         } else if (upgradeCount < 1) {
             Game.spawns[spawn].createCreep([
+                // WORK,MOVE,CARRY
                 WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
                 WORK,WORK,WORK,WORK,WORK,
                 MOVE,MOVE,
@@ -161,17 +168,20 @@ let Spawn10 = {
             });
         } else if (mineralBotCount < 0 && Game.spawns[spawn].room.find(FIND_MINERALS)[0].mineralAmount > 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
-                WORK,WORK,WORK,WORK,WORK,WORK,WORK,
-                CARRY,CARRY,CARRY,CARRY,CARRY
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                MOVE,MOVE,MOVE,MOVE,MOVE,
+                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
+                WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,
+                CARRY,CARRY,CARRY,CARRY
             ], 'minBot' + (Game.time), {
                 'role': 'mineralBot',
                 'home': spawn
             });
         } else if (mineralManagerCount < 0) {
             Game.spawns[spawn].createCreep([
-                MOVE,
-                CARRY,CARRY
+                MOVE,MOVE,
+                CARRY,CARRY,CARRY,CARRY
             ], 'minManager' + (Game.time), {
                 'role': 'mineralManager',
                 'home': spawn
